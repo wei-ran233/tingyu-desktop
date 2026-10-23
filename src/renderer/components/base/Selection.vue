@@ -4,7 +4,7 @@
       <span class="label">{{ label }}</span>
       <div class="icon" :class="$style.icon">
         <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" height="100%" viewBox="0 0 451.847 451.847" space="preserve">
-          <use xlink:href="#icon-down" />
+          <use :xlink:href="$themeIconRef('#icon-down')" />
         </svg>
       </div>
     </div>

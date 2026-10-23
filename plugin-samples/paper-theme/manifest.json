@@ -1,0 +1,117 @@
+{
+  "id": "lx.paper-theme",
+  "name": "纸间主题资源样例",
+  "version": "1.0.0",
+  "apiVersion": "1.8.0",
+  "defaultEnabled": false,
+  "main": "index.html",
+  "description": "通过清单贡献包内PNG、图标、布局尺寸与动效参数；默认关闭，不依赖新宿主身份映射。",
+  "permissions": [
+    "theme.contribute",
+    "theme.appearance",
+    "theme.resources"
+  ],
+  "dependencies": [
+    {
+      "id": "lx.official-suite",
+      "minVersion": "1.0.0",
+      "maxVersionExclusive": "2.0.0"
+    }
+  ],
+  "themes": [
+    {
+      "id": "paper-light",
+      "name": "纸间 · 日光",
+      "description": "包内纹理、图标与有界布局组合的声明式主题",
+      "isDark": false,
+      "tokens": {
+        "--lx-background": "#f3f5f1",
+        "--lx-surface": "#f9faf7",
+        "--lx-surface-raised": "#f0f3ed",
+        "--lx-text": "#283c35",
+        "--lx-text-muted": "#60746a",
+        "--lx-accent": "#3e7764",
+        "--lx-border": "#ccd9ce",
+        "--lx-hover": "#e6eee6",
+        "--lx-selected": "#dbe8dc",
+        "--lx-accent-contrast": "#f3f5f1",
+        "--lx-radius": "12px",
+        "--lx-font": "\"Noto Sans CJK SC\", \"Microsoft YaHei\", sans-serif"
+      },
+      "appearance": {
+        "identity": "paper",
+        "layout": "sidebar",
+        "background": "image",
+        "detail": "sleeve",
+        "content": "full",
+        "metrics": {
+          "sidebarWidth": 176,
+          "radius": 18,
+          "spacing": 12
+        },
+        "motion": {
+          "durationMs": 8000,
+          "enabled": true
+        }
+      },
+      "resources": {
+        "background": "assets/paper.png",
+        "icons": {
+          "search": {
+            "path": "M5 5h12v12H5ZM16 16l5 5M9 9h4M11 7v6"
+          },
+          "brand": {
+            "path": "M4 3h12l4 4v14H4ZM15 3v6h5M8 13h8M8 17h6"
+          }
+        }
+      }
+    },
+    {
+      "id": "paper-dark",
+      "name": "纸间 · 夜读",
+      "description": "包内纹理、图标与有界布局组合的声明式主题",
+      "isDark": true,
+      "tokens": {
+        "--lx-background": "#102634",
+        "--lx-surface": "#173241",
+        "--lx-surface-raised": "#203e4b",
+        "--lx-text": "#e2eff0",
+        "--lx-text-muted": "#a1bdc6",
+        "--lx-accent": "#86ceca",
+        "--lx-border": "#345360",
+        "--lx-hover": "#244959",
+        "--lx-selected": "#315b66",
+        "--lx-accent-contrast": "#102634",
+        "--lx-radius": "12px",
+        "--lx-font": "\"Noto Sans CJK SC\", \"Microsoft YaHei\", sans-serif"
+      },
+      "appearance": {
+        "identity": "paper",
+        "layout": "sidebar",
+        "background": "image",
+        "detail": "sleeve",
+        "content": "full",
+        "metrics": {
+          "sidebarWidth": 176,
+          "radius": 18,
+          "spacing": 12
+        },
+        "motion": {
+          "durationMs": 8000,
+          "enabled": true
+        }
+      },
+      "resources": {
+        "background": "assets/paper.png",
+        "icons": {
+          "search": {
+            "path": "M5 5h12v12H5ZM16 16l5 5M9 9h4M11 7v6"
+          },
+          "brand": {
+            "path": "M4 3h12l4 4v14H4ZM15 3v6h5M8 13h8M8 17h6"
+          }
+        }
+      }
+    }
+  ]
+}

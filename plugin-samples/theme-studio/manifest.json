@@ -1,0 +1,135 @@
+{
+  "id": "lx.theme-studio",
+  "name": "听觉空间 · 动态主题包",
+  "version": "1.2.0",
+  "apiVersion": "1.2.0",
+  "description": "潮汐、信号、花间：包含页面配色、动态背景、导航布局与播放详情构图的三套主题。",
+  "author": "听域",
+  "main": "index.html",
+  "icon": "icon.svg",
+  "permissions": [
+    "theme.contribute",
+    "theme.appearance"
+  ],
+  "themes": [
+    {
+      "id": "tide",
+      "name": "潮汐",
+      "description": "深海里的慢拍。流动的光、宽侧栏与悬浮播放器。",
+      "isDark": true,
+      "tokens": {
+        "--lx-background": "#102634",
+        "--lx-surface": "#173241",
+        "--lx-surface-raised": "#203e4b",
+        "--lx-text": "#e2eff0",
+        "--lx-text-muted": "#a1bdc6",
+        "--lx-accent": "#86ceca",
+        "--lx-border": "#345360",
+        "--lx-hover": "#244959",
+        "--lx-selected": "#315b66",
+        "--lx-accent-contrast": "#102634",
+        "--lx-radius": "12px",
+        "--lx-font": "\"Noto Sans CJK SC\", \"Microsoft YaHei\", sans-serif"
+      },
+      "appearance": {
+        "layout": "sidebar",
+        "background": "tide",
+        "detail": "cinema",
+        "content": "focus",
+        "views": {
+          "download": "theme-tide",
+          "search": "theme-tide",
+          "list": "theme-tide",
+          "leaderboard": "theme-tide",
+          "songlists": "theme-tide",
+          "playback": "theme-tide",
+          "playback.detail": "theme-tide",
+          "settings": "theme-tide"
+        },
+        "identity": "tide"
+      }
+    },
+    {
+      "id": "signal",
+      "name": "信号",
+      "description": "把桌面变成录音室。紧凑控制台、方形唱片与播放律动。",
+      "isDark": true,
+      "tokens": {
+        "--lx-background": "#252831",
+        "--lx-surface": "#2d313a",
+        "--lx-surface-raised": "#373c46",
+        "--lx-text": "#f0e8d6",
+        "--lx-text-muted": "#b5b5b2",
+        "--lx-accent": "#edbc68",
+        "--lx-border": "#51545a",
+        "--lx-hover": "#41454c",
+        "--lx-selected": "#57513f",
+        "--lx-accent-contrast": "#252831",
+        "--lx-radius": "4px",
+        "--lx-font": "\"Noto Sans CJK SC\", \"Microsoft YaHei\", sans-serif"
+      },
+      "appearance": {
+        "layout": "rail",
+        "background": "signal",
+        "detail": "sleeve",
+        "content": "full",
+        "views": {
+          "settings": "theme-signal",
+          "download": "theme-signal",
+          "dj": "compact",
+          "search": "theme-signal",
+          "list": "theme-signal",
+          "leaderboard": "theme-signal",
+          "songlists": "theme-signal",
+          "playback": "theme-signal",
+          "playback.detail": "theme-signal"
+        },
+        "identity": "signal"
+      }
+    },
+    {
+      "id": "petals",
+      "name": "花间",
+      "description": "把一首歌听成午后的风。横向导航、花瓣剪影与舒展留白。",
+      "isDark": false,
+      "tokens": {
+        "--lx-background": "#f3f5f1",
+        "--lx-surface": "#f9faf7",
+        "--lx-surface-raised": "#f0f3ed",
+        "--lx-text": "#283c35",
+        "--lx-text-muted": "#60746a",
+        "--lx-accent": "#3e7764",
+        "--lx-border": "#ccd9ce",
+        "--lx-hover": "#e6eee6",
+        "--lx-selected": "#dbe8dc",
+        "--lx-accent-contrast": "#f3f5f1",
+        "--lx-radius": "12px",
+        "--lx-font": "\"Noto Sans CJK SC\", \"Microsoft YaHei\", sans-serif"
+      },
+      "appearance": {
+        "layout": "topbar",
+        "background": "petals",
+        "detail": "poster",
+        "content": "full",
+        "views": {
+          "settings": "theme-petals",
+          "search": "theme-petals",
+          "list": "theme-petals",
+          "leaderboard": "theme-petals",
+          "songlists": "theme-petals",
+          "playback": "theme-petals",
+          "playback.detail": "theme-petals",
+          "download": "theme-petals"
+        },
+        "identity": "petals"
+      }
+    }
+  ],
+  "dependencies": [
+    {
+      "id": "lx.official-suite",
+      "minVersion": "1.0.0",
+      "maxVersionExclusive": "2.0.0"
+    }
+  ]
+}

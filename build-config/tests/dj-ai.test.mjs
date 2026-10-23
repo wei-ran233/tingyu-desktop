@@ -9,7 +9,7 @@ import ts from 'typescript'
 // Compile the application boundary and keep the real pi-ai SDK. The player is
 // isolated so tests cannot search the network or change the user's playback.
 const temporary = await mkdtemp(join(tmpdir(), 'lx-dj-ai-'))
-const source = new URL('../../src/renderer/utils/dj/ai/', import.meta.url)
+const source = new URL('../../src/renderer/bundles/radio/utils/ai/', import.meta.url)
 for (const file of ['modelsManager', 'tools', 'streamHandler']) {
   const code = ts.transpileModule(await readFile(file === 'modelsManager' ? new URL('../../src/common/dj/models.ts', import.meta.url) : new URL(`${file}.ts`, source), 'utf8'), {
     compilerOptions: { module: ts.ModuleKind.ESNext, target: ts.ScriptTarget.ES2022 },

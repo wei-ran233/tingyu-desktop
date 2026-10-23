@@ -10,6 +10,7 @@ import {
 } from './winMain'
 import { quitApp } from '@main/app'
 import { TRAY_AUTO_ID } from '@common/constants'
+import { APP_NAME } from '@common/appIdentity'
 
 let tray: Electron.Tray | null
 let isEnableTray: boolean = false
@@ -168,7 +169,7 @@ export const createTray = () => {
   // 托盘
   tray = new Tray(nativeImage.createFromPath(getIconPath(global.lx.appSetting['tray.themeId'])))
 
-  // tray.setToolTip('LX Music')
+  // tray.setToolTip(APP_NAME)
   // createMenu()
   tray.setIgnoreDoubleClickEvents(true)
   if (!isMac) {
@@ -327,7 +328,7 @@ const setLyric = (lyricLineText?: string) => {
   }
 }
 
-const defaultTip = 'LX Music'
+const defaultTip = APP_NAME
 const setTip = () => {
   if (!tray) return
 

@@ -1,0 +1,23 @@
+{
+  "id": "lx.official-list",
+  "name": "Official List View",
+  "version": "1.0.0",
+  "apiVersion": "1.0.0",
+  "description": "Default host-independent list view for every music collection surface.",
+  "author": "听域",
+  "main": "index.html",
+  "icon": "icon.svg",
+  "permissions": ["collection.read", "collection.commands"],
+  "collection": {
+    "providers": [
+      {
+        "id": "official-list",
+        "displayName": "List (official)",
+        "description": "Compact table with selection, sorting, paging and the full host command set.",
+        "surfaces": ["search-music", "list-music", "songlist-detail-music", "leaderboard-music"],
+        "entry": "index.html",
+        "icon": "icon.svg"
+      }
+    ]
+  }
+}

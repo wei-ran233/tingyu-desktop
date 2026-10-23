@@ -2,18 +2,18 @@
 div(:class="$style.footerLeftControlBtns")
   button(:class="[$style.footerLeftControlBtn, $style.lrcBtn]" :aria-label="toggleDesktopLyricBtnTitle" @click="toggleDesktopLyric" @contextmenu="toggleLockDesktopLyric")
     svg(v-show="appSetting['desktopLyric.enable']" version="1.1" xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" height="125%" viewBox="0 0 512 512" space="preserve")
-      use(xlink:href="#icon-desktop-lyric-on")
+      use(:xlink:href="$themeIconRef('#icon-desktop-lyric-on')")
     svg(v-show="!appSetting['desktopLyric.enable']" version="1.1" xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" height="125%" viewBox="0 0 512 512" space="preserve")
-      use(xlink:href="#icon-desktop-lyric-off")
+      use(:xlink:href="$themeIconRef('#icon-desktop-lyric-off')")
   button(:class="[$style.footerLeftControlBtn, { [$style.active]: appSetting['player.audioVisualization'] }]" :aria-label="$t('audio_visualization')" @click="toggleAudioVisualization")
     svg(version="1.1" xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" width="95%" viewBox="0 0 24 24" space="preserve")
-      use(xlink:href="#icon-audio-wave")
+      use(:xlink:href="$themeIconRef('#icon-audio-wave')")
   button(:class="[$style.footerLeftControlBtn, { [$style.active]: isShowLrcSelectContent }]" :aria-label="$t('lyric__select')" @click="toggleVisibleLrc")
     svg(version="1.1" xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" width="95%" viewBox="0 0 24 24" space="preserve")
-      use(xlink:href="#icon-text")
+      use(:xlink:href="$themeIconRef('#icon-text')")
   button(:class="[$style.footerLeftControlBtn, {[$style.active]: isShowPlayComment}]" :aria-label="$t('comment__show')" @click="toggleVisibleComment")
     svg(version="1.1" xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" width="95%" viewBox="0 0 24 24" space="preserve")
-      use(xlink:href="#icon-comment")
+      use(:xlink:href="$themeIconRef('#icon-comment')")
   common-sound-effect-btn
   common-playback-rate-btn
   common-volume-btn
@@ -21,7 +21,7 @@ div(:class="$style.footerLeftControlBtns")
   common-play-directory-popover
   button(:class="$style.footerLeftControlBtn" :aria-label="$t('player__add_music_to')" @click="isShowAddMusicTo = true")
     svg(version="1.1" xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" viewBox="0 0 512 512" space="preserve")
-      use(xlink:href="#icon-add-2")
+      use(:xlink:href="$themeIconRef('#icon-add-2')")
   common-list-add-modal(v-model:show="isShowAddMusicTo" :music-info="playMusicInfo.musicInfo")
 
 </template>

@@ -1,0 +1,85 @@
+{
+  "id": "lx.search-starters",
+  "name": "搜索灵感",
+  "version": "1.2.0",
+  "apiVersion": "1.6.0",
+  "defaultEnabled": false,
+  "description": "在搜索空白页提供可自行编辑的搜索词。仅提供数据，显示和搜索行为由当前页面负责；默认关闭。",
+  "author": "听域",
+  "main": "index.html",
+  "permissions": [
+    "extensions.provide",
+    "settings.scoped",
+    "extensions.act",
+    "events.publish"
+  ],
+  "dependencies": [
+    {
+      "id": "lx.official-suite",
+      "minVersion": "1.0.0",
+      "maxVersionExclusive": "2.0.0"
+    }
+  ],
+  "runtime": {
+    "entry": "runtime.html",
+    "timeoutMs": 3000
+  },
+  "extensions": [
+    {
+      "id": "starter-queries",
+      "target": "lx.official-suite/search.suggestions",
+      "version": "1.0.0",
+      "handler": "suggest",
+      "priority": 0
+    },
+    {
+      "id": "next-set",
+      "target": "lx.official-suite/search.suggestions.next",
+      "version": "1.0.0",
+      "handler": "next",
+      "title": "换一组"
+    }
+  ],
+  "settings": [
+    {
+      "key": "queries",
+      "title": "搜索词",
+      "description": "用分号或换行分隔，最多保留64项，每项不超过100字；可用“换一组”循环浏览。",
+      "type": "string",
+      "default": "雨天爵士;华语民谣;电影原声;夜间钢琴;复古合成器;清晨轻音乐;独立摇滚;周末蓝调",
+      "maxLength": 2048
+    },
+    {
+      "key": "pageSize",
+      "title": "每组搜索词数量",
+      "type": "number",
+      "default": 4,
+      "min": 1,
+      "max": 12
+    }
+  ],
+  "extensionPoints": [
+    {
+      "id": "suggestions.changed",
+      "version": "1.0.0",
+      "kind": "event",
+      "input": {
+        "type": "object",
+        "properties": {
+          "suggestions": {
+            "type": "array",
+            "maxItems": 12,
+            "items": {
+              "type": "string",
+              "maxLength": 100
+            }
+          }
+        }
+      },
+      "output": {
+        "type": "object",
+        "properties": {}
+      }
+    }
+  ]
+}

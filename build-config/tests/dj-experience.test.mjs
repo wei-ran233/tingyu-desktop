@@ -16,7 +16,7 @@ const compile = async(path, replacements = {}) => {
   return import(pathToFileURL(target))
 }
 try {
-  const { renderMarkdown, safeLink } = await compile('src/renderer/utils/dj/markdown.ts')
+  const { renderMarkdown, safeLink } = await compile('src/renderer/bundles/radio/utils/markdown.ts')
   await check('Markdown escapes raw HTML, scripts and attributes', () => {
     const html = renderMarkdown('<img src=x onerror=alert(1)>\n<script>alert(1)</script>\n**<svg onload=alert(1)>**')
     assert.ok(!html.includes('<img')); assert.ok(!html.includes('<script')); assert.ok(!html.includes('<svg'))
@@ -35,10 +35,10 @@ try {
   await writeFile(statePath, `export const djHistoryList=[];export const chatHistoryList=[];export const recommendHistoryList=[];export let saves=0;export const saveHistory=()=>saves++;`)
   const state = await import(pathToFileURL(statePath))
   const vueUrl = import.meta.resolve('vue')
-  const history = await compile('src/renderer/composables/useDjHistory.ts', {
+  const history = await compile('src/renderer/bundles/radio/composables/useDjHistory.ts', {
     "'@common/utils/vueTools'": JSON.stringify(vueUrl),
-    "'@renderer/store/dj'": JSON.stringify(pathToFileURL(statePath).href),
-    "import { recordPlayedSong } from '@renderer/utils/dj/userProfile';": 'const recordPlayedSong=()=>{};',
+    "'@renderer/bundles/radio/store'": JSON.stringify(pathToFileURL(statePath).href),
+    "import { recordPlayedSong } from '@renderer/bundles/radio/utils/userProfile';": 'const recordPlayedSong=()=>{};',
   })
   const h = history.useDjHistory()
   await check('history rename survives subsequent replies and stays separate by mode', () => {
@@ -86,7 +86,7 @@ try {
     assert.deepEqual(played, { name: '夜曲', singer: '歌手' })
     assert.equal(h.activeHistoryId.value, 'chat-1')
   })
-  const { createTtsService } = await compile('src/main/modules/dj/tts.ts')
+  const { createTtsService } = await compile('src/main/bundles/radio/tts.ts')
   await check('main-process TTS preserves local speech and cancellation', async() => {
     const settings = { ttsEngine: 'web-speech', ttsVoice: '', ttsSpeed: 1 }
     const result = await createTtsService(settings).synthesize('你好 **音乐**')
@@ -98,7 +98,7 @@ try {
   const vaultFile = join(directory, 'vault.json')
   const electronStub = join(directory, 'electron-stub.mjs')
   await writeFile(electronStub, `import {Buffer} from 'node:buffer';export const app={getPath:()=>${JSON.stringify(directory)}};export const safeStorage={isEncryptionAvailable:()=>true,getSelectedStorageBackend:()=> 'gnome_libsecret',encryptString:text=>Buffer.from('encrypted:'+text),decryptString:buffer=>buffer.toString().slice(10)};`)
-  const vault = await compile('src/main/modules/dj/vault.ts', {
+  const vault = await compile('src/main/bundles/radio/vault.ts', {
     "'electron'": JSON.stringify(pathToFileURL(electronStub).href),
     "import { VAULT_PREFIX } from '@common/dj/ipc';": "const VAULT_PREFIX='lx-vault:';",
   })

@@ -9,7 +9,8 @@ import { encodePath, isUrl } from '@common/utils/common'
 import { joinPath } from '@common/utils/nodejs'
 import { markRaw, shallowReactive } from '@common/utils/vueTools'
 import { getThemes as getTheme } from '@renderer/utils/ipc'
-import { qualityList, themeInfo, themeShouldUseDarkColors } from './index'
+import { qualityList, themeId, themeInfo, themeShouldUseDarkColors } from './index'
+import { applyThemeSnapshot } from '@renderer/core/theme'
 
 export const assertApiSupport = (source: LX.Source): boolean => {
   return source == 'local' || qualityList.value[source] != null
@@ -77,6 +78,13 @@ export const applyTheme = (id: string, lightId: string, darkId: string, dataPath
       themeId = id == 'auto' && themeShouldUseDarkColors.value ? 'black' : 'green'
       theme = themeInfo.themes.find(theme => theme.id == themeId)!
     }
-    window.setTheme(buildThemeColors(theme, dataPath))
+    const colors = buildThemeColors(theme, dataPath)
+    window.setTheme(colors)
+    applyThemeSnapshot(colors, themeId, themeShouldUseDarkColors.value)
   })
+}
+
+export const previewThemeColors = (colors: Record<string, string>, isDark = themeShouldUseDarkColors.value) => {
+  window.setTheme(colors)
+  applyThemeSnapshot(colors, themeId.value, isDark)
 }

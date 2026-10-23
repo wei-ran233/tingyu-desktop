@@ -14,7 +14,7 @@ div(:class="$style.container")
                 div(v-if="item.location" :class="$style.label") {{ $t('comment__location', { location: item.location }) }}
             div(v-if="item.likedCount != null" :class="$style.likes")
               svg(:class="$style.likesIcon" version="1.1" xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" viewBox="0 0 512 512" space="preserve")
-                use(xlink:href="#icon-thumbs-up")
+                use(:xlink:href="$themeIconRef('#icon-thumbs-up')")
               | {{ item.likedCount }}
           p.select(:class="$style.comment_text") {{ item.text }}
           div(v-if="item.images?.length" :class="$style.comment_images")

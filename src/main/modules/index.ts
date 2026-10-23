@@ -1,22 +1,11 @@
-import registerDj from './dj'
-import registerUserApi from './userApi'
 import registerWinMain from './winMain'
-import registerHotKey from './hotKey'
-import registerTray from './tray'
-import registerAppMenu from './appMenu'
-import registerWinLyric from './winLyric'
-import registerCommonRenderers from './commonRenderers'
-
+import { registerPluginModule } from './plugin'
+import { registerOfficialServices } from '@main/bundles/official'
 let isRegistered = false
 export default () => {
   if (isRegistered) return
-  registerDj()
-  registerUserApi()
-  registerCommonRenderers()
+  registerOfficialServices()
+  registerPluginModule()
   registerWinMain()
-  registerHotKey()
-  registerTray()
-  registerAppMenu()
-  registerWinLyric()
   isRegistered = true
 }

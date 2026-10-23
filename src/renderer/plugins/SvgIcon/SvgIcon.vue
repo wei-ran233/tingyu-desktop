@@ -5,6 +5,7 @@
 </template>
 
 <script>
+import { themeIconRef } from '@renderer/core/theme/identity'
 
 export default {
   name: 'SvgIcon',
@@ -16,7 +17,7 @@ export default {
   },
   computed: {
     id() {
-      return `#icon-${this.name}`
+      return themeIconRef(`#icon-${this.name}`)
     },
   },
 }

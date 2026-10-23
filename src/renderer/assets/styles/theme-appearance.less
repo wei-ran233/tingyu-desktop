@@ -1,0 +1,136 @@
+/* Only a selected, validated theme activates these host-owned presentation rules. */
+.theme-studio-link { display: inline-block; margin-bottom: 12px; color: var(--color-primary); text-decoration: underline; text-underline-offset: 3px; }
+.theme-backdrop { position: absolute; inset: 0; overflow: hidden; pointer-events: none; z-index: 0; border-radius: inherit; }
+.theme-atmosphere { position: absolute; inset: 0; }
+.theme-atmosphere i { position: absolute; display: block; }
+.theme-signal { display: none; }
+html[data-lx-theme] {
+  #root { background-image: none; font-family: var(--lx-font); }
+  #container { isolation: isolate; background: transparent; }
+  #left, #right { position: relative; z-index: 1; }
+  #right { background: color-mix(in srgb, var(--lx-surface) 89%, transparent); box-shadow: none; }
+  #toolbar { border-bottom: 1px solid var(--lx-border); }
+  #player { position: relative; z-index: 2; background: var(--lx-surface-raised); border: 1px solid var(--lx-border); }
+  [data-theme-navigation] { overflow: auto; min-height: 0; }
+  [data-theme-navigation] ul { padding: 8px; }
+  [data-theme-navigation] li { min-height: 43px; }
+  [data-theme-navigation] li::before { display: none; }
+  [data-theme-navigation] a { position: relative; height: 43px; gap: 12px; padding: 0 13px; color: var(--lx-text-muted); justify-content: flex-start; text-decoration: none; }
+  [data-theme-navigation] a[aria-selected=true] { color: var(--lx-text); background: var(--lx-selected); box-shadow: none; }
+  [data-theme-navigation] svg, [data-theme-navigation] img { width: 21px; height: 21px; flex: none; }
+  [data-theme-navigation] .theme-nav-label { display: inline; font-size: 12px; }
+  [data-theme-navigation] a::before { display: none; }
+  .music-page-heading { border-bottom-color: var(--lx-border); }
+  .music-page-heading h2 { font-weight: 500; }
+  .music-page-toolbar { border-bottom-color: var(--lx-border); }
+  [data-play-detail] { background: var(--lx-background); border: 1px solid var(--lx-border); }
+  [data-play-detail] > :first-child { background-image: none; }
+  [data-play-detail] .comment { background: var(--lx-surface); border-radius: var(--lx-radius); padding: 12px; box-sizing: border-box; }
+  [data-play-detail] .lyric { color: var(--lx-text-muted); }
+  #view table { background: transparent; }
+  #view thead { color: var(--lx-text-muted); }
+  #view button, #view input, #view select { accent-color: var(--lx-accent); }
+  .settings-form, .settings-workspace { color: var(--lx-text); }
+  a:focus-visible, button:focus-visible, [role=tab]:focus-visible { outline: 2px solid var(--lx-accent); outline-offset: 3px; }
+}
+html[data-lx-theme][data-lx-scheme=dark] [data-theme-navigation] img { filter: brightness(0) invert(1); opacity: .8; }
+
+/* Tide: a wide, quiet sidebar and a player floating above slow ocean light. */
+html[data-lx-layout=sidebar] {
+  #container { padding: var(--lx-theme-spacing, 18px) var(--lx-theme-spacing, 18px) 14px 0; box-sizing: border-box; }
+  #left { width: var(--lx-theme-sidebar-width, 158px); }
+  #right { border-radius: var(--lx-theme-radius, 22px); border: 1px solid var(--lx-border); padding-bottom: 12px; }
+  #player { margin: 8px 16px 0; border-radius: 16px; box-shadow: 0 8px 25px #0002; }
+  [data-theme-navigation] li { margin-bottom: 5px; }
+  [data-theme-navigation] a { border-radius: 10px; }
+  .music-page-heading { padding: 20px 25px; min-height: 72px; }
+  .music-page-heading h2 { font-size: 24px; letter-spacing: -.03em; }
+}
+html[data-lx-background=tide] {
+  .theme-backdrop { background: #0d2030; }
+  .theme-atmosphere i { width: 75%; height: 58%; left: calc(var(--i) * 10% - 35%); bottom: calc(var(--i) * -8%); border-radius: 48% 52% 30% 70%; background: radial-gradient(ellipse, color-mix(in srgb, var(--lx-accent) 20%, transparent), transparent 68%); animation: lx-tide var(--lx-theme-motion-duration, 24s) ease-in-out infinite alternate; animation-delay: calc(var(--i) * -4s); }
+  .theme-atmosphere i:nth-child(2n) { background: radial-gradient(ellipse, #4a70b93b, transparent 68%); }
+}
+@keyframes lx-tide { from { transform: translate(-8%, 7%) rotate(-12deg) scale(.9); } to { transform: translate(15%, -15%) rotate(12deg) scale(1.2); } }
+
+/* Signal: compact instrument rail, squared surfaces, a restrained playing meter. */
+html[data-lx-layout=rail] {
+  #container { padding: 10px; gap: 10px; box-sizing: border-box; }
+  #left { width: 58px; border: 1px solid var(--lx-border); border-radius: 7px; background: var(--lx-surface); }
+  #right { border: 1px solid var(--lx-border); border-radius: 7px; }
+  [data-theme-navigation] ul { padding: 4px; }
+  [data-theme-navigation] a { justify-content: center; padding: 0; height: 44px; }
+  [data-theme-navigation] .theme-nav-label { display: none; }
+  #player { border-width: 1px 0 0; border-radius: 0; }
+  .music-page-heading { min-height: 43px; padding: 8px 18px; }
+  .music-page-heading h2 { font-size: 15px; }
+  .music-page-toolbar { min-height: 35px; padding-top: 1px; padding-bottom: 1px; }
+  .theme-choice, .theme-miniature, .theme-studio-controls button { border-radius: 5px; }
+}
+html[data-lx-background=signal] {
+  .theme-backdrop { background: #252831; }
+  .theme-atmosphere { background-image: linear-gradient(#f1b6530a 1px, transparent 1px), linear-gradient(90deg, #f1b6530a 1px, transparent 1px); background-size: 32px 32px; }
+  .theme-signal { display: flex; position: absolute; height: 90px; left: 12%; right: 4%; bottom: 0; align-items: flex-end; gap: 8px; opacity: .16; }
+  .theme-signal i { flex: 1; height: calc(var(--level) * 1%); background: var(--lx-accent); transform-origin: bottom; animation: lx-meter var(--lx-theme-motion-duration, 1.5s) ease-in-out infinite alternate; animation-delay: calc(var(--i) * -.13s); animation-play-state: paused; }
+  .theme-is-playing .theme-signal i { animation-play-state: running; }
+}
+@keyframes lx-meter { from { transform: scaleY(.3); } to { transform: scaleY(1); } }
+
+/* Petals: horizontal navigation, an open page and a soft botanical silhouette. */
+html[data-lx-layout=topbar] {
+  #container { flex-direction: column; padding: 0 24px 16px; box-sizing: border-box; }
+  #left { flex: none; display: flex; flex-direction: row; width: 100%; height: 65px; align-items: center; border-bottom: 1px solid var(--lx-border); }
+  #left > :first-child { width: 62px; height: 48px; line-height: 48px; padding: 0; flex: none; }
+  #right { flex: 1; min-height: 0; overflow: hidden; background: color-mix(in srgb, var(--lx-surface) 83%, transparent); border-radius: 0 0 18px 18px; }
+  [data-theme-navigation] { overflow: auto hidden; }
+  [data-theme-navigation] ul { display: flex; gap: 3px; padding: 2px; }
+  [data-theme-navigation] li { flex: none; min-height: 40px; }
+  [data-theme-navigation] a { height: 39px; padding: 0 12px; border-radius: 20px; gap: 6px; }
+  [data-theme-navigation] svg, [data-theme-navigation] img { width: 16px; height: 16px; }
+  [data-theme-navigation] .theme-nav-label { font-size: 11px; }
+  #toolbar { background: transparent; }
+  #player { margin: 10px 18px 2px; border-radius: 28px; }
+  .music-page-heading { min-height: 78px; padding: 20px 28px; }
+  .music-page-heading h2 { font-family: 'Noto Serif CJK SC', 'Songti SC', serif; font-size: 27px; }
+}
+html[data-lx-background=petals] {
+  .theme-backdrop { background: #f3f5f1; }
+  .theme-atmosphere i { width: 38%; height: 62%; right: calc(var(--i) * -4%); top: calc(var(--i) * -5%); border-radius: 65% 35% 60% 40%; background: #e2b8c02b; transform-origin: 80% 20%; animation: lx-petals var(--lx-theme-motion-duration, 36s) ease-in-out infinite alternate; animation-delay: calc(var(--i) * -6s); }
+  .theme-atmosphere i:nth-child(2n) { background: #a4bdaa30; width: 30%; right: auto; left: -15%; top: 50%; }
+}
+@keyframes lx-petals { from { transform: rotate(-13deg) translateY(-2%); } to { transform: rotate(16deg) translateY(5%); } }
+
+/* Detail compositions retain the original lyric/comment controls and their state. */
+html[data-lx-detail=cinema] [data-play-detail] {
+  .left { flex-basis: 34%; padding: 25px; justify-content: center; }
+  .left img { border-radius: 50%; aspect-ratio: 1; object-fit: cover; box-shadow: 0 0 0 12px #ffffff05, 0 0 0 13px var(--lx-border); }
+  .description { text-align: center; margin-top: 28px; }
+  .description p:first-child { font-size: 22px; line-height: 1.6; }
+  .lyric { font-weight: 300; }
+}
+html[data-lx-detail=sleeve] [data-play-detail] {
+  .left { flex-basis: 30%; padding: 25px; justify-content: center; }
+  .left img { border-radius: 3px; border: 1px solid var(--lx-border); box-shadow: 10px 10px 0 #0003; }
+  .description { padding-top: 10px; border-top: 1px solid var(--lx-accent); }
+}
+html[data-lx-detail=poster] [data-play-detail] {
+  .left { flex-basis: 38%; justify-content: center; padding: 35px; }
+  .left img { border-radius: 46% 46% 8px 8px; aspect-ratio: 1; object-fit: cover; }
+  .description p:first-child { font-family: 'Noto Serif CJK SC', serif; font-size: 25px; }
+}
+html[data-lx-content=focus] { .music-page-count { display: none; } [data-play-detail] .description p:nth-child(n+3) { display: none; } }
+html[data-lx-theme]:not([data-lx-layout]) [data-theme-navigation] .theme-nav-label { display: none; }
+html[data-lx-theme] [data-play-detail]:has(.comment[aria-hidden=false]) .left { flex-basis: 18%; padding: 12px; }
+html[data-lx-theme] [data-play-detail]:has(.comment[aria-hidden=false]) .description p:first-child { font-size: 15px; }
+
+html[data-lx-motion=off] .theme-backdrop *, .disableAnimation .theme-backdrop *, .theme-is-hidden * { animation-play-state: paused !important; }
+@media (prefers-reduced-motion: reduce) { .theme-backdrop *, .theme-miniature * { animation: none !important; } }
+@media (max-width: 900px) {
+  html[data-lx-layout=sidebar] { #left { width: 112px; } #container { padding: 8px 8px 8px 0; } [data-theme-navigation] a { padding: 0 8px; gap: 7px; } }
+  html[data-lx-layout=topbar] { #container { padding: 0 10px 10px; } [data-theme-navigation] a { padding: 0 10px; } [data-theme-navigation] .theme-nav-label { display: none; } }
+  html[data-lx-theme] [data-play-detail] .left { padding: 15px; }
+}
+
+html[data-lx-background=image], html[data-lx-background=none] { .theme-atmosphere, .theme-signal, .theme-tide-lines, .theme-scan, .theme-botanical { display: none; } }
+html[data-lx-background=none] .theme-backdrop { background: var(--lx-background); }
+@media (prefers-reduced-motion: reduce) { .theme-backdrop * { animation: none !important; } }

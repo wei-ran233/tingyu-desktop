@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Card gallery guide</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+      .page { padding: 24px; max-width: 720px; }
+      .page h1 { margin-top: 0; }
+      .grid-demo { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin: 18px 0; }
+      .demo { height: 90px; border-radius: var(--lx-radius); background: var(--lx-surface-raised); border: 1px solid var(--lx-border); }
+      .accent { color: var(--lx-accent); }
+    </style>
+  </head>
+  <body>
+    <div class="page">
+      <h1>Card gallery</h1>
+      <p>This page runs in the same isolated <span class="accent">lxplugin://</span> view as the collection provider. It receives theme, language and identity through the restricted preload bridge.</p>
+      <div class="grid-demo">
+        <div class="demo"></div><div class="demo"></div><div class="demo"></div>
+        <div class="demo"></div><div class="demo"></div><div class="demo"></div>
+      </div>
+      <p id="identity"></p>
+      <button class="btn primary" id="go-search" type="button">Open search</button>
+    </div>
+    <script src="page.js"></script>
+  </body>
+</html>

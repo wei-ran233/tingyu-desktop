@@ -1,0 +1,15 @@
+{
+  "id": "lx.search-cleaner",
+  "name": "搜索词整理",
+  "version": "1.0.0",
+  "apiVersion": "1.10.0",
+  "defaultEnabled": false,
+  "description": "可选增强插件：整理搜索词中的多余空白与全角空格。依赖官方搜索功能，默认关闭；可在插件设置中启用。",
+  "author": "听域",
+  "main": "index.html",
+  "permissions": ["extensions.process", "settings.scoped"],
+  "dependencies": [{"id": "lx.official-suite", "minVersion": "1.0.0", "maxVersionExclusive": "2.0.0"}],
+  "runtime": {"entry": "runtime.html", "timeoutMs": 3000},
+  "extensions": [{"id": "normalize-query", "target": "lx.official-suite/search.query", "version": "1.0.0", "handler": "normalize", "priority": 0}],
+  "settings": [{"key": "collapseSpaces", "title": "合并连续空白", "description": "把重复空格、换行和全角空格整理为单个空格；首尾空白始终移除。", "type": "boolean", "default": true, "exportable": true}]
+}

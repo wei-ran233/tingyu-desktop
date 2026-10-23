@@ -1,0 +1,298 @@
+{
+  "id": "lx.official-suite",
+  "name": "听域官方功能整合包",
+  "version": "1.0.0",
+  "apiVersion": "1.0.0",
+  "defaultEnabled": true,
+  "pages": [
+    {
+      "id": "search",
+      "path": "/search",
+      "routeName": "Search",
+      "titleKey": "search",
+      "icon": "#icon-search-2",
+      "iconViewBox": "0 0 425.2 425.2",
+      "placement": "primary",
+      "component": "Search",
+      "surfaceId": "search-music",
+      "order": 10,
+      "featureId": "search",
+      "defaultView": "classic",
+      "lazy": true
+    },
+    {
+      "id": "song-list",
+      "path": "/songList/list",
+      "routeName": "SongList",
+      "titleKey": "song_list",
+      "icon": "#icon-album",
+      "iconViewBox": "0 0 425.2 425.2",
+      "placement": "primary",
+      "component": "SongList",
+      "order": 20,
+      "featureId": "songlists",
+      "defaultView": "classic",
+      "lazy": true
+    },
+    {
+      "id": "leaderboard",
+      "path": "/leaderboard",
+      "routeName": "Leaderboard",
+      "titleKey": "leaderboard",
+      "icon": "#icon-leaderboard",
+      "iconViewBox": "0 0 425.22 425.2",
+      "placement": "primary",
+      "component": "Leaderboard",
+      "surfaceId": "leaderboard-music",
+      "order": 30,
+      "featureId": "leaderboard",
+      "defaultView": "classic",
+      "lazy": true
+    },
+    {
+      "id": "list",
+      "path": "/list",
+      "routeName": "List",
+      "titleKey": "my_list",
+      "icon": "#icon-love",
+      "iconViewBox": "0 0 444.87 391.18",
+      "placement": "primary",
+      "component": "List",
+      "surfaceId": "list-music",
+      "order": 40,
+      "featureId": "list",
+      "defaultView": "classic",
+      "lazy": true
+    },
+    {
+      "id": "download",
+      "path": "/download",
+      "routeName": "Download",
+      "titleKey": "download",
+      "icon": "#icon-download-2",
+      "iconViewBox": "0 0 425.2 425.2",
+      "placement": "primary",
+      "component": "Download",
+      "order": 50,
+      "featureId": "download",
+      "defaultView": "classic",
+      "lazy": true,
+      "requires": "download.enable"
+    },
+    {
+      "id": "setting",
+      "path": "/setting",
+      "routeName": "Setting",
+      "titleKey": "setting",
+      "icon": "#icon-setting",
+      "iconViewBox": "0 0 493.23 436.47",
+      "placement": "tools",
+      "component": "Setting",
+      "order": 70,
+      "featureId": "settings",
+      "defaultView": "classic",
+      "lazy": true
+    },
+    {
+      "id": "songlist-detail",
+      "path": "/songList/detail",
+      "routeName": "SongListDetail",
+      "titleKey": "song_list",
+      "icon": "#icon-album",
+      "iconViewBox": "0 0 425.2 425.2",
+      "placement": "hidden",
+      "order": 21,
+      "featureId": "songlist-detail",
+      "defaultView": "classic",
+      "navigationGroup": "SongList",
+      "surfaceId": "songlist-detail-music"
+    }
+  ],
+  "settings": [
+    {
+      "id": "SettingBasic",
+      "titleKey": "setting__basic",
+      "featureId": "settings.basic",
+      "component": "SettingBasic",
+      "defaultView": "classic",
+      "order": 0,
+      "group": "general"
+    },
+    {
+      "id": "SettingPlay",
+      "titleKey": "setting__play",
+      "featureId": "settings.play",
+      "component": "SettingPlay",
+      "defaultView": "classic",
+      "order": 10,
+      "group": "playback"
+    },
+    {
+      "id": "SettingPlayDetail",
+      "titleKey": "setting__play_detail",
+      "featureId": "settings.play_detail",
+      "component": "SettingPlayDetail",
+      "defaultView": "classic",
+      "order": 20,
+      "group": "playback"
+    },
+    {
+      "id": "SettingDesktopLyric",
+      "titleKey": "setting__desktop_lyric",
+      "featureId": "settings.desktop_lyric",
+      "component": "SettingDesktopLyric",
+      "defaultView": "classic",
+      "order": 30,
+      "group": "playback"
+    },
+    {
+      "id": "SettingSearch",
+      "titleKey": "setting__search",
+      "featureId": "settings.search",
+      "component": "SettingSearch",
+      "defaultView": "classic",
+      "order": 40,
+      "group": "library"
+    },
+    {
+      "id": "SettingList",
+      "titleKey": "setting__list",
+      "featureId": "settings.list",
+      "component": "SettingList",
+      "defaultView": "classic",
+      "order": 50,
+      "group": "library"
+    },
+    {
+      "id": "SettingDownload",
+      "titleKey": "setting__download",
+      "featureId": "settings.download",
+      "component": "SettingDownload",
+      "defaultView": "classic",
+      "order": 60,
+      "group": "library"
+    },
+    {
+      "id": "SettingHotKey",
+      "titleKey": "setting__hot_key",
+      "featureId": "settings.hot_key",
+      "component": "SettingHotKey",
+      "defaultView": "classic",
+      "order": 70,
+      "group": "general"
+    },
+    {
+      "id": "SettingSync",
+      "titleKey": "setting__sync",
+      "featureId": "settings.sync",
+      "component": "SettingSync",
+      "defaultView": "classic",
+      "order": 80,
+      "group": "connection"
+    },
+    {
+      "id": "SettingOpenAPI",
+      "titleKey": "setting__open_api",
+      "featureId": "settings.open_api",
+      "component": "SettingOpenAPI",
+      "defaultView": "classic",
+      "order": 90,
+      "group": "connection"
+    },
+    {
+      "id": "SettingNetwork",
+      "titleKey": "setting__network",
+      "featureId": "settings.network",
+      "component": "SettingNetwork",
+      "defaultView": "classic",
+      "order": 100,
+      "group": "connection"
+    },
+    {
+      "id": "SettingOdc",
+      "titleKey": "setting__odc",
+      "featureId": "settings.odc",
+      "component": "SettingOdc",
+      "defaultView": "classic",
+      "order": 110,
+      "group": "maintenance"
+    },
+    {
+      "id": "SettingBackup",
+      "titleKey": "setting__backup",
+      "featureId": "settings.backup",
+      "component": "SettingBackup",
+      "defaultView": "classic",
+      "order": 120,
+      "group": "maintenance"
+    },
+    {
+      "id": "SettingOther",
+      "titleKey": "setting__other",
+      "featureId": "settings.other",
+      "component": "SettingOther",
+      "defaultView": "classic",
+      "order": 130,
+      "group": "general"
+    },
+    {
+      "id": "SettingUpdate",
+      "titleKey": "setting__update",
+      "featureId": "settings.update",
+      "component": "SettingUpdate",
+      "defaultView": "classic",
+      "order": 140,
+      "group": "maintenance"
+    },
+    {
+      "id": "SettingAbout",
+      "titleKey": "setting__about",
+      "featureId": "settings.about",
+      "component": "SettingAbout",
+      "defaultView": "classic",
+      "order": 150,
+      "group": "maintenance"
+    }
+  ],
+  "slots": [
+    {
+      "id": "playbar",
+      "featureId": "playback",
+      "component": "PlayBar"
+    },
+    {
+      "id": "play-detail",
+      "featureId": "playback.detail",
+      "component": "PlayDetail"
+    },
+    {
+      "id": "toolbar",
+      "featureId": "navigation.search",
+      "component": "Toolbar"
+    }
+  ],
+  "includes": [
+    "lx.official-list",
+    "lx.card-gallery",
+    "lx.radio"
+  ],
+  "services": [
+    {
+      "id": "lx.official.runtime",
+      "lifecycle": "bundle",
+      "provides": [
+        "playback",
+        "sync",
+        "openapi",
+        "statusbar-lyrics",
+        "updates",
+        "source-api",
+        "deeplinks",
+        "library-auto-update"
+      ]
+    }
+  ],
+  "featureDependencies": {
+    "playback.detail": ["playback"]
+  }
+}

@@ -1,0 +1,24 @@
+Tingyu Desktop / 听域
+Independently maintained by wei-ran233 and contributors.
+
+This software is derived from LX Music Desktop by lyswhut (落雪无痕) and
+contributors: https://github.com/lyswhut/lx-music-desktop
+It also incorporates changes from:
+https://github.com/wei-ran233/lx-music-desktop-style-change
+
+The original work is distributed under the Apache License, Version 2.0.
+The LICENSE file and the original upstream supplemental notices are retained.
+See licenses/upstream/ for the original supplemental notices.
+The source repository also provides doc/legal/README.md for context.
+Original copyright, authorship and third-party license notices remain with
+those respective authors. The preserved Git history records their work.
+
+Modifications in this independently maintained distribution include the
+Tingyu product identity, desktop interface and playback improvements, AI
+radio, modular native bundles, signed isolated plugins, settings migration,
+credential storage and accompanying developer documentation. Changed files
+and the implementation history are documented in Git and doc/records/.
+
+Tingyu is a separate project. The upstream authors do not endorse it, and
+support, releases and issue reports for Tingyu belong to:
+https://github.com/wei-ran233/tingyu-desktop

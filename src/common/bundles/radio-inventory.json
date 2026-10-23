@@ -1,0 +1,14 @@
+[
+  {
+    "id": "dj",
+    "title": "ai_dj",
+    "feature": "./features/Dj/index.js",
+    "renderer": "./views/Dj/index.vue"
+  },
+  {
+    "id": "settings.radio",
+    "title": "ai_dj",
+    "feature": "./features/Settings.js",
+    "renderer": "./views/Settings.vue"
+  }
+]

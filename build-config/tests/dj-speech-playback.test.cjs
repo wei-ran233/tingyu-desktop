@@ -14,12 +14,12 @@ class Audio {
 }
 const settings={ttsLang:'zh-CN',ttsSpeed:1,ttsPitch:1,duckingVolume:20}
 const exportsObject={}
-vm.runInNewContext(ts.transpileModule(fs.readFileSync('src/renderer/core/player/djAudio.ts','utf8'),{compilerOptions:{module:ts.ModuleKind.CommonJS,target:ts.ScriptTarget.ES2022}}).outputText,{
+vm.runInNewContext(ts.transpileModule(fs.readFileSync('src/renderer/bundles/radio/player/djAudio.ts','utf8'),{compilerOptions:{module:ts.ModuleKind.CommonJS,target:ts.ScriptTarget.ES2022}}).outputText,{
   exports:exportsObject, require:n=>({
     '@renderer/plugins/player':{setVolume:v=>volumes.push(v)},
     '@renderer/store/setting':{appSetting:{'player.volume':0.8}},
-    '@renderer/store/dj':{djSettings:settings},
-    '@renderer/composables/useDjChat':{autoContinueRecommend:()=>false},
+    '@renderer/bundles/radio/store':{djSettings:settings},
+    '@renderer/bundles/radio/composables/useDjChat':{autoContinueRecommend:()=>false},
   })[n], Audio, window:{}, URL:{revokeObjectURL:u=>urls.push(u)}, console,setTimeout,clearTimeout,setInterval,clearInterval,
 })
 ;(async()=>{
@@ -49,7 +49,7 @@ vm.runInNewContext(ts.transpileModule(fs.readFileSync('src/renderer/core/player/
   console.log('PASS a replacement speech starts once and cancels old startup')
   const serviceExports={}
   let timeoutMs=0
-  vm.runInNewContext(ts.transpileModule(fs.readFileSync('src/main/modules/dj/tts.ts','utf8'),{compilerOptions:{module:ts.ModuleKind.CommonJS,target:ts.ScriptTarget.ES2022}}).outputText,{
+  vm.runInNewContext(ts.transpileModule(fs.readFileSync('src/main/bundles/radio/tts.ts','utf8'),{compilerOptions:{module:ts.ModuleKind.CommonJS,target:ts.ScriptTarget.ES2022}}).outputText,{
     exports:serviceExports, AbortController, crypto:require('node:crypto'), console,
     setTimeout:(fn,ms)=>{timeoutMs=ms;return setTimeout(fn,0)},clearTimeout,
   })

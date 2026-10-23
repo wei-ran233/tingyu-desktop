@@ -2,42 +2,42 @@
   <div :class="$style.btns">
     <button v-if="playBtn" type="button" :aria-label="$t('list__play')" @contextmenu.capture.stop @click.stop="handleClick('play')">
       <svg v-once version="1.1" xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" height="100%" viewBox="0 0 287.386 287.386" space="preserve">
-        <use xlink:href="#icon-testPlay" />
+        <use :xlink:href="$themeIconRef('#icon-testPlay')" />
       </svg>
     </button>
     <button v-if="listAddBtn" type="button" :aria-label="$t('list__add_to')" @contextmenu.capture.stop @click.stop="handleClick('listAdd')">
       <svg v-once version="1.1" xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" height="100%" viewBox="0 0 42 42" space="preserve">
-        <use xlink:href="#icon-addTo" />
+        <use :xlink:href="$themeIconRef('#icon-addTo')" />
       </svg>
     </button>
     <button v-if="downloadBtn && appSetting['download.enable']" type="button" :aria-label="$t('list__download')" @contextmenu.capture.stop @click.stop="handleClick('download')">
       <svg v-once version="1.1" xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" height="100%" viewBox="0 0 475.078 475.077" space="preserve">
-        <use xlink:href="#icon-download" />
+        <use :xlink:href="$themeIconRef('#icon-download')" />
       </svg>
     </button>
     <button v-if="startBtn" type="button" :aria-label="$t('list__start')" @contextmenu.capture.stop @click.stop="handleClick('start')">
       <svg v-once version="1.1" xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" height="100%" viewBox="0 0 1024 1024" space="preserve">
-        <use xlink:href="#icon-play" />
+        <use :xlink:href="$themeIconRef('#icon-play')" />
       </svg>
     </button>
     <button v-if="pauseBtn" type="button" :aria-label="$t('list__pause')" @contextmenu.capture.stop @click.stop="handleClick('pause')">
       <svg v-once version="1.1" xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" height="100%" viewBox="0 0 1024 1024" space="preserve">
-        <use xlink:href="#icon-pause" />
+        <use :xlink:href="$themeIconRef('#icon-pause')" />
       </svg>
     </button>
     <button v-if="fileBtn" type="button" :aria-label="$t('list__file')" @contextmenu.capture.stop @click.stop="handleClick('file')">
       <svg v-once version="1.1" xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" height="100%" viewBox="-61 0 512 512" space="preserve">
-        <use xlink:href="#icon-musicFile" />
+        <use :xlink:href="$themeIconRef('#icon-musicFile')" />
       </svg>
     </button>
     <button v-if="searchBtn" type="button" :aria-label="$t('list__search')" @contextmenu.capture.stop @click.stop="handleClick('search')">
       <svg v-once version="1.1" xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" height="100%" viewBox="0 0 30.239 30.239" space="preserve">
-        <use xlink:href="#icon-search" />
+        <use :xlink:href="$themeIconRef('#icon-search')" />
       </svg>
     </button>
     <button v-if="removeBtn" type="button" :aria-label="$t('list__remove')" @click.stop="handleClick('remove')">
       <svg v-once version="1.1" xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" height="100%" viewBox="0 0 212.982 212.982" space="preserve">
-        <use xlink:href="#icon-delete" />
+        <use :xlink:href="$themeIconRef('#icon-delete')" />
       </svg>
     </button>
   </div>

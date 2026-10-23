@@ -156,11 +156,14 @@ export default {
       return list
     }
 
-    const updateView = (currentScrollTop = dom_scrollContainer.value.scrollTop) => {
-      // const currentScrollTop = this.$refs.dom_scrollContainer.scrollTop
+    const updateView = (currentScrollTop) => {
+      // A queued resize/frame can run after a page or renderer is removed.
+      const container = dom_scrollContainer.value
+      if (!container) return
+      currentScrollTop ??= container.scrollTop
       const itemHeight = props.itemHeight
       const currentStartIndex = Math.floor(currentScrollTop / itemHeight)
-      const scrollContainerHeight = dom_scrollContainer.value.clientHeight
+      const scrollContainerHeight = container.clientHeight
       const currentEndIndex = currentStartIndex + Math.ceil(scrollContainerHeight / itemHeight)
       const continuous = currentStartIndex <= endIndex && currentEndIndex >= startIndex
       const currentStartRenderIndex = Math.max(currentStartIndex, 0)

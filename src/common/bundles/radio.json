@@ -1,0 +1,88 @@
+{
+  "id": "lx.radio",
+  "name": "听域电台",
+  "version": "1.0.0",
+  "apiVersion": "1.0.0",
+  "defaultEnabled": true,
+  "dependencies": [
+    "lx.official-suite"
+  ],
+  "pages": [
+    {
+      "id": "dj",
+      "path": "/dj",
+      "routeName": "Dj",
+      "titleKey": "ai_dj",
+      "icon": "#icon-dj",
+      "iconViewBox": "0 0 24 24",
+      "placement": "primary",
+      "component": "Dj",
+      "order": 60,
+      "featureId": "dj",
+      "defaultView": "classic",
+      "lazy": true
+    }
+  ],
+  "settings": [
+    {
+      "id": "SettingRadio",
+      "titleKey": "ai_dj",
+      "featureId": "settings.radio",
+      "component": "SettingRadio",
+      "defaultView": "classic",
+      "order": 65,
+      "group": "radio",
+      "children": [
+        {
+          "id": "llm",
+          "title": "模型与 API",
+          "icon": "model"
+        },
+        {
+          "id": "djPrompt",
+          "title": "DJ 人设",
+          "icon": "radio"
+        },
+        {
+          "id": "chatPrompt",
+          "title": "聊天人设",
+          "icon": "chat"
+        },
+        {
+          "id": "tts",
+          "title": "语音播报",
+          "icon": "voice"
+        },
+        {
+          "id": "weather",
+          "title": "天气设置",
+          "icon": "weather"
+        },
+        {
+          "id": "data",
+          "title": "数据与备份",
+          "icon": "download"
+        }
+      ]
+    }
+  ],
+  "slots": [],
+  "includes": [],
+  "services": [
+    {
+      "id": "lx.radio.runtime",
+      "lifecycle": "bundle",
+      "provides": [
+        "radio",
+        "recommendations",
+        "speech",
+        "listening-profile"
+      ]
+    }
+  ],
+  "featureDependencies": {
+    "dj": [
+      "playback"
+    ]
+  }
+}

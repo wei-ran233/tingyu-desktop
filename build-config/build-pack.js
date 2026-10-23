@@ -4,18 +4,23 @@ const builder = require('electron-builder')
 const beforePack = require('./build-before-pack')
 const afterPack = require('./build-after-pack')
 
+const APP_NAME = '听域'
+const APP_ID = 'com.tingyu.desktop'
+const REPOSITORY_OWNER = 'wei-ran233'
+const REPOSITORY_NAME = 'tingyu-desktop'
+
 /**
 * @type {import('electron-builder').Configuration}
 * @see https://www.electron.build/configuration/configuration
 */
 const options = {
-  appId: 'cn.toside.music.desktop',
-  productName: 'lx-music-desktop',
+  appId: APP_ID,
+  productName: APP_NAME,
   npmRebuild: false,
   beforePack,
   afterPack,
   protocols: {
-    name: 'lx-music-protocol',
+    name: 'Tingyu Music Link',
     schemes: [
       'lxmusic',
     ],
@@ -38,8 +43,8 @@ const options = {
   publish: [
     {
       provider: 'github',
-      owner: 'wei-ran233',
-      repo: 'lx-music-desktop-style-change',
+      owner: REPOSITORY_OWNER,
+      repo: REPOSITORY_NAME,
     },
   ],
 }
@@ -50,7 +55,7 @@ const options = {
 const winOptions = {
   win: {
     icon: './resources/icons/icon.ico',
-    legalTrademarks: 'lyswhut',
+    legalTrademarks: 'Tingyu',
     // artifactName: '${productName}-v${version}-${env.ARCH}-${env.TARGET}.${ext}',
   },
   nsis: {
@@ -59,7 +64,7 @@ const winOptions = {
     allowToChangeInstallationDirectory: true,
     // differentialPackage: true,
     license: './licenses/license.rtf',
-    shortcutName: 'LX Music',
+    shortcutName: APP_NAME,
   },
 }
 /**
@@ -69,7 +74,7 @@ const winOptions = {
 const linuxOptions = {
   linux: {
     syncDesktopName: true,
-    maintainer: 'lyswhut <lyswhut@qq.com>',
+    maintainer: 'Tingyu contributors <wei-ran233@users.noreply.github.com>',
     // artifactName: '${productName}-${version}.${env.ARCH}.${ext}',
     icon: './resources/icons',
     category: 'Utility;AudioVideo;Audio;Player;Music;',
@@ -79,9 +84,9 @@ const linuxOptions = {
       // https://specifications.freedesktop.org/desktop-entry-spec/latest/example.html
       // https://developer.gnome.org/documentation/guidelines/maintainer/integrating.html#desktop-files
       entry: {
-        Name: 'LX Music',
-        'Name[zh_CN]': 'LX Music',
-        'Name[zh_TW]': 'LX Music',
+        Name: 'Tingyu',
+        'Name[zh_CN]': APP_NAME,
+        'Name[zh_TW]': APP_NAME,
         Encoding: 'UTF-8',
         MimeType: 'x-scheme-handler/lxmusic',
         StartupNotify: 'false',
@@ -120,7 +125,7 @@ const macOptions = {
         path: '/Applications',
       },
     ],
-    title: 'LX Music v${version}',
+    title: `${APP_NAME} v\${version}`,
   },
 }
 

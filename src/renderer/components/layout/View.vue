@@ -1,12 +1,19 @@
 <template>
   <div :class="$style.view">
-    <router-view v-slot="{ Component }">
+    <router-view v-if="ready" v-slot="{ Component }">
       <!-- <transition enter-active-class="animated-fast fadeIn" leave-active-class="animated-fast fadeOut"> -->
       <component :is="Component" class="view-container" />
       <!-- </transition> -->
     </router-view>
   </div>
 </template>
+
+<script setup>
+import { ref, onMounted } from '@common/utils/vueTools'
+// Page modals teleport into #view; create that target before mounting pages.
+const ready = ref(false)
+onMounted(() => { ready.value = true })
+</script>
 
 <style lang="less" module>
 @import '@renderer/assets/styles/layout.less';

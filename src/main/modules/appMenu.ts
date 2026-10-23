@@ -1,5 +1,6 @@
 import { app, Menu } from 'electron'
 import { isMac } from '@common/utils'
+import { APP_NAME } from '@common/appIdentity'
 
 
 export default () => {
@@ -8,7 +9,7 @@ export default () => {
       {
         label: app.getName(),
         submenu: [
-          { label: '关于洛雪音乐', role: 'about' },
+          { label: `关于${APP_NAME}`, role: 'about' },
           { type: 'separator' },
           { label: '隐藏', role: 'hide' },
           { type: 'separator' },

@@ -12,10 +12,10 @@ const compile = (file, imports = {}) => {
 }
 const data = new Map()
 const storage = { getItem: k => data.get(k) ?? null, setItem: (k, v) => data.set(k, v) }
-const listening = compile('src/renderer/utils/dj/listeningProfile.ts')
+const listening = compile('src/renderer/bundles/radio/utils/listeningProfile.ts')
 const loveList = reactive({ list: [] })
-const loadProfile = () => compile('src/renderer/utils/dj/userProfile.ts', {
-  '@common/utils/vueTools': { ref }, '@renderer/store/list/action': { getListMusicsFromCache: () => loveList.list, getListMusics: async() => loveList.list }, '@common/constants': { LIST_IDS: { LOVE: 'love' } }, '@renderer/store/dj': { addProfileLog() {} }, './listeningProfile': listening,
+const loadProfile = () => compile('src/renderer/bundles/radio/utils/userProfile.ts', {
+  '@common/utils/vueTools': { ref }, '@renderer/store/list/action': { getListMusicsFromCache: () => loveList.list, getListMusics: async() => loveList.list }, '@common/constants': { LIST_IDS: { LOVE: 'love' } }, '@renderer/bundles/radio/store': { addProfileLog() {} }, './listeningProfile': listening,
 })
 let profile = loadProfile()
 const song = (name, singer, genre) => ({ id: name, name, singer, meta: { genre } })

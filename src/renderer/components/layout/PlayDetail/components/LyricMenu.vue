@@ -16,12 +16,12 @@
         <div :class="$style.subGroup">
           <button :class="$style.btn" :aria-label="$t('lyric_menu__size_add')" @click="fontSizeUp(5)" @contextmenu="fontSizeUp(1)">
             <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" height="18px" viewBox="0 0 24 24" space="preserve">
-              <use xlink:href="#icon-font-increase" />
+              <use :xlink:href="$themeIconRef('#icon-font-increase')" />
             </svg>
           </button>
           <button :class="$style.btn" :aria-label="$t('lyric_menu__size_dec')" @click="fontSizeDown(5)" @contextmenu="fontSizeDown(1)">
             <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" height="18px" viewBox="0 0 24 24" space="preserve">
-              <use xlink:href="#icon-font-decrease" />
+              <use :xlink:href="$themeIconRef('#icon-font-decrease')" />
             </svg>
           </button>
         </div>

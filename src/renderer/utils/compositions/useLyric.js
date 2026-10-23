@@ -162,9 +162,11 @@ export default ({ isPlay, lyric, playProgress, isShowLyricProgressSetting, offse
     for (const line of lines) {
       dom_line_content.appendChild(line.dom_line)
     }
+    if (!dom_lyric_text.value) return
     dom_lyric_text.value.textContent = ''
     dom_lyric_text.value.appendChild(dom_line_content)
     nextTick(() => {
+      if (!dom_lyric.value) return
       dom_lines = dom_lyric.value.querySelectorAll('.line-content')
       handleScrollLrc()
     })
@@ -216,6 +218,9 @@ export default ({ isPlay, lyric, playProgress, isShowLyricProgressSetting, offse
   })
 
   onBeforeUnmount(() => {
+    clearLyricScrollTimeout()
+    clearTimeout(delayScrollTimeout)
+    cancelScrollFn?.()
     document.removeEventListener('mousemove', handleMouseMsMove)
     document.removeEventListener('mouseup', handleMouseMsUp)
     document.removeEventListener('touchmove', handleTouchMove)

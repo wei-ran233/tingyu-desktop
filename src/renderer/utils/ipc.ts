@@ -1,3 +1,4 @@
+import { ipcRenderer, type IpcRendererEvent } from 'electron'
 import { rendererSend, rendererInvoke, rendererOn, rendererOff } from '@common/rendererIpc'
 import { HOTKEY_RENDERER_EVENT_NAME, WIN_MAIN_RENDERER_EVENT_NAME, CMMON_EVENT_NAME } from '@common/ipcNames'
 import { type ProgressInfo, type UpdateDownloadedEvent, type UpdateInfo } from 'electron-updater'
@@ -90,39 +91,30 @@ export const quitUpdate = () => {
   rendererSend(WIN_MAIN_RENDERER_EVENT_NAME.quit_update)
 }
 
+const listenForUpdate = <T>(name: string, listener: LX.IpcRendererEventListenerParams<T>): RemoveListener => {
+  const handler = (event: IpcRendererEvent, params: T) => { listener({ event, params }) }
+  ipcRenderer.on(name, handler)
+  return () => { ipcRenderer.removeListener(name, handler) }
+}
+
 export const onUpdateAvailable = (listener: LX.IpcRendererEventListenerParams<UpdateInfo>): RemoveListener => {
-  rendererOn(WIN_MAIN_RENDERER_EVENT_NAME.update_available, listener)
-  return () => {
-    rendererOff(WIN_MAIN_RENDERER_EVENT_NAME.update_available, listener)
-  }
+  return listenForUpdate(WIN_MAIN_RENDERER_EVENT_NAME.update_available, listener)
 }
 
 export const onUpdateError = (listener: LX.IpcRendererEventListenerParams<string>): RemoveListener => {
-  rendererOn(WIN_MAIN_RENDERER_EVENT_NAME.update_error, listener)
-  return () => {
-    rendererOff(WIN_MAIN_RENDERER_EVENT_NAME.update_error, listener)
-  }
+  return listenForUpdate(WIN_MAIN_RENDERER_EVENT_NAME.update_error, listener)
 }
 
 export const onUpdateProgress = (listener: LX.IpcRendererEventListenerParams<ProgressInfo>): RemoveListener => {
-  rendererOn(WIN_MAIN_RENDERER_EVENT_NAME.update_progress, listener)
-  return () => {
-    rendererOff(WIN_MAIN_RENDERER_EVENT_NAME.update_progress, listener)
-  }
+  return listenForUpdate(WIN_MAIN_RENDERER_EVENT_NAME.update_progress, listener)
 }
 
 export const onUpdateDownloaded = (listener: LX.IpcRendererEventListenerParams<UpdateDownloadedEvent>): RemoveListener => {
-  rendererOn(WIN_MAIN_RENDERER_EVENT_NAME.update_downloaded, listener)
-  return () => {
-    rendererOff(WIN_MAIN_RENDERER_EVENT_NAME.update_downloaded, listener)
-  }
+  return listenForUpdate(WIN_MAIN_RENDERER_EVENT_NAME.update_downloaded, listener)
 }
 
-export const onUpdateNotAvailable = (listener: LX.IpcRendererEventListenerParams<UpdateInfo>): RemoveListener => {
-  rendererOn(WIN_MAIN_RENDERER_EVENT_NAME.update_not_available, listener)
-  return () => {
-    rendererOff(WIN_MAIN_RENDERER_EVENT_NAME.update_not_available, listener)
-  }
+export const onUpdateNotAvailable = (listener: LX.IpcRendererEventListenerParams<UpdateInfo | null>): RemoveListener => {
+  return listenForUpdate(WIN_MAIN_RENDERER_EVENT_NAME.update_not_available, listener)
 }
 
 
@@ -538,7 +530,7 @@ export const openSaveDir = async(options: Electron.SaveDialogOptions) => {
  * 在资源管理器中定位文件
  */
 export const openDirInExplorer = async(path: string) => {
-  return rendererSend<string>(WIN_MAIN_RENDERER_EVENT_NAME.open_dir_in_explorer, path)
+  rendererSend<string>(WIN_MAIN_RENDERER_EVENT_NAME.open_dir_in_explorer, path)
 }
 
 /**
@@ -823,7 +815,7 @@ export const sendSyncAction = async(action: LX.Sync.SyncServiceActions) => {
  * 获取同步服务端连接设备历史列表
  * @returns
  */
-export const getSyncServerDevices = () => {
+export const getSyncServerDevices = async() => {
   return rendererInvoke<LX.Sync.ServerDevices>(WIN_MAIN_RENDERER_EVENT_NAME.sync_get_server_devices)
 }
 
@@ -831,7 +823,7 @@ export const getSyncServerDevices = () => {
  * 移除同步服务端连接设备
  * @returns
  */
-export const removeSyncServerDevice = (clientId: string) => {
+export const removeSyncServerDevice = async(clientId: string) => {
   return rendererInvoke<string>(WIN_MAIN_RENDERER_EVENT_NAME.sync_remove_server_device, clientId)
 }
 

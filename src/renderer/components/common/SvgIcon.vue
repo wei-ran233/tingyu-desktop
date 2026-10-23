@@ -1,6 +1,7 @@
 <template>
   <svg :class="$style.icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
-    <path v-for="(path, index) in paths" :key="index" :d="path" />
+    <use v-if="$themeIdentity && $themeIconRef('#icon-' + name) !== '#icon-' + name" :xlink:href="$themeIconRef('#icon-' + name)" />
+    <template v-else><path v-for="(path, index) in paths" :key="index" :d="path" /></template>
   </svg>
 </template>
 

@@ -13,8 +13,21 @@ import createWorkers from './worker'
 import { migrateDBData } from './utils/migrate'
 import { openDirInExplorer } from '@common/utils/electron'
 import { setProxyByHost } from '@common/utils/request'
+import { registerPluginScheme } from '@main/modules/plugin/protocol'
+import { APP_ID, APP_NAME, PACKAGED_APP_ID, REPOSITORY_URL } from '@common/appIdentity'
+
+registerPluginScheme()
 
 export const initGlobalData = () => {
+  app.setName(APP_NAME)
+  app.setAppUserModelId(PACKAGED_APP_ID)
+  app.setAboutPanelOptions({
+    applicationName: APP_NAME,
+    applicationVersion: app.getVersion(),
+    authors: ['Tingyu contributors'],
+    website: REPOSITORY_URL,
+  })
+
   const envParams = parseEnvParams()
   // envParams.cmdParams.dt = !!envParams.cmdParams.dt
 
@@ -144,10 +157,16 @@ export const setUserDataPath = () => {
     }
   }
 
+  if (!(process.platform == 'win32' && existsSync(path.join(path.dirname(app.getPath('exe')), 'portable')))) {
+    const explicitUserData = app.commandLine.getSwitchValue('user-data-dir')
+    app.setPath('userData', explicitUserData ? path.resolve(explicitUserData) : path.join(app.getPath('appData'), APP_ID))
+  }
+
   const userDataPath = app.getPath('userData')
+  // Compatibility migrations only inspect Tingyu's own profile. The LX profile is never probed or modified.
   global.lxOldDataPath = userDataPath
   global.lxDataPath = path.join(userDataPath, 'LxDatas')
-  if (!existsSync(global.lxDataPath)) mkdirSync(global.lxDataPath)
+  if (!existsSync(global.lxDataPath)) mkdirSync(global.lxDataPath, { recursive: true })
 }
 
 export const registerDeeplink = (startApp: () => void) => {

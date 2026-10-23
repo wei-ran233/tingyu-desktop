@@ -1,0 +1,7 @@
+<template>
+<transition enter-active-class="animated fadeIn" leave-active-class="animated fadeOut" @after-enter="handleAfterEnter" @after-leave="handleAfterLeave">
+  <section v-if="isShowPlayerDetail" class="theme-detail" data-play-detail data-detail-theme="petals" :class="{ 'theme-comment-open': isShowPlayComment, fullscreen: isFullscreen }" role="dialog" aria-labelledby="play-detail-track" @contextmenu="handleContextMenu">
+    <theme-backdrop /><ControlBtnsLeftHeader v-if="appSetting['common.controlBtnPosition'] === 'left'" /><ControlBtnsRightHeader v-else /><div class="theme-detail-stage"><div class="theme-detail-sleeve"><div class="theme-detail-track"><h1 id="play-detail-track">{{ musicInfo.name }}</h1><p>{{ musicInfo.singer }}</p><small v-if="musicInfo.album">{{ musicInfo.album }}</small></div><div class="theme-detail-cover"><img v-if="musicInfo.pic" :src="musicInfo.pic" alt=""><theme-brand v-else compact /></div></div><LyricPlayer v-if="visibled" /><music-comment v-if="visibled" :show="isShowPlayComment" :music-info="playMusicInfo.musicInfo" @close="hideComment" /></div><play-bar v-if="visibled" />
+  </section>
+</transition>
+</template>

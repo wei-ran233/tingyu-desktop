@@ -7,6 +7,7 @@ import { mainSend } from '@common/mainIpc'
 import { WIN_MAIN_RENDERER_EVENT_NAME } from '@common/ipcNames'
 import { sendFocus, sendTaskbarButtonClick } from './rendererEvent'
 import { encodePath } from '@common/utils/electron'
+import { APP_NAME } from '@common/appIdentity'
 
 let browserWindow: Electron.BrowserWindow | null = null
 
@@ -112,6 +113,7 @@ export const createWindow = () => {
    * Initial window options
    */
   const options: Electron.BrowserWindowConstructorOptions = {
+    title: APP_NAME,
     height: windowSizeInfo.height,
     minHeight: 480,
     minWidth: 640,
@@ -328,6 +330,8 @@ export const getCacheSize = async() => {
   if (!browserWindow) throw new Error('main window is undefined')
   return browserWindow.webContents.session.getCacheSize()
 }
+
+export const getMainWindow = (): Electron.BrowserWindow | null => browserWindow
 
 export const getWebContents = (): Electron.WebContents => {
   if (!browserWindow) throw new Error('main window is undefined')

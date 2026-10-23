@@ -4,7 +4,7 @@ let serviceMode='pending'
 const sender={id:1,once(){},removeListener(){},isDestroyed:()=>false}
 const exportsObject={}
 const ipc={request:'request',cancel:'cancel',credentials:'credentials'}
-vm.runInNewContext(ts.transpileModule(fs.readFileSync('src/main/modules/dj/index.ts','utf8'),{compilerOptions:{module:ts.ModuleKind.CommonJS,target:ts.ScriptTarget.ES2022}}).outputText,{
+vm.runInNewContext(ts.transpileModule(fs.readFileSync('src/main/bundles/radio/index.ts','utf8'),{compilerOptions:{module:ts.ModuleKind.CommonJS,target:ts.ScriptTarget.ES2022}}).outputText,{
   exports:exportsObject,AbortController,console,
   setTimeout:(fn,ms)=>{const t={fn,ms};timers.add(t);return t},clearTimeout:t=>timers.delete(t),
   require:n=>({
@@ -15,7 +15,8 @@ vm.runInNewContext(ts.transpileModule(fs.readFileSync('src/main/modules/dj/index
     './voices':{},'./tts':{createTtsService:()=>({synthesize:async(text,signal)=>serviceMode==='success'?{audio:[1,2,3]}:new Promise((resolve,reject)=>signal.addEventListener('abort',()=>reject(new Error('TTS request aborted'))))})},
   })[n],
 })
-exportsObject.default()
+let enabled = true
+const cancelPluginRequests = exportsObject.default(() => enabled)
 ;(async()=>{
   const request=id=>handlers.request({sender},{id,operation:'tts',payload:{settings:{ttsApiKey:'fixture-secret'},text:'固定合成测试'}})
   const first=request('timeout')
@@ -25,6 +26,12 @@ exportsObject.default()
   const second=request('cancel');listeners.cancel({sender},'cancel')
   const cancelled=await second;assert.equal(cancelled.error.name,'AbortError');assert.equal(timers.size,0)
   console.log('PASS explicit user cancellation remains AbortError and clears service timer')
+  const third=request('plugin-disable');enabled=false;cancelPluginRequests()
+  assert.equal((await third).error.name,'AbortError');assert.equal(timers.size,0)
+  assert.equal((await request('disabled')).error.name,'AbortError')
+  assert.throws(()=>handlers.credentials({sender},{}),/不允许/)
+  console.log('PASS radio disable aborts pending requests and blocks services and credential access')
+  enabled=true
   serviceMode='success'
   const success=await request('success');assert.equal(success.value.audio.length,3);assert.equal(timers.size,0)
   console.log('PASS completed TTS service returns audio and releases pending timeout')

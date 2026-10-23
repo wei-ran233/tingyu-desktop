@@ -2,7 +2,7 @@
   <material-popup-btn :class="$style.btnContent">
     <button :class="[$style.btn, { [$style.active]: playbackRate != 1 }]" :aria-label="`${$t('player__playback_rate')}${playbackRate}x`">
       <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" width="100%" viewBox="0 0 24 24" space="preserve">
-        <use xlink:href="#icon-plex" />
+        <use :xlink:href="$themeIconRef('#icon-plex')" />
       </svg>
     </button>
     <template #content>

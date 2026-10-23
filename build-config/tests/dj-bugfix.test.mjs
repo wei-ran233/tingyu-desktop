@@ -16,7 +16,7 @@ let checks = 0
 const check = async(name, fn) => {await fn(); checks++; console.log('PASS '+name)}
 const originalFetch = globalThis.fetch
 try {
-  const {createTtsService} = await compile('src/main/modules/dj/tts.ts')
+  const {createTtsService} = await compile('src/main/bundles/radio/tts.ts')
   const base = {ttsSpeed:1.2,ttsPitch:1,ttsLang:'zh-CN',ttsVoice:'',ttsApiKey:'fixture-key',ttsRegion:'eastasia'}
   let request
   globalThis.fetch = async(url, init) => {request={url,...init};return new Response(new Uint8Array([73,68,51,1]), {headers:{'Content-Type':'audio/mpeg'}})}

@@ -1,7 +1,7 @@
 <template>
   <button :class="$style.btn" :aria-label="$t('player__sound_effect')" @click="visible = true">
     <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" width="90%" viewBox="0 0 24 24" space="preserve">
-      <use xlink:href="#icon-tune-variant" />
+      <use :xlink:href="$themeIconRef('#icon-tune-variant')" />
     </svg>
   </button>
   <material-modal :show="visible" bg-close="bg-close" :teleport="teleport" @close="visible = false">

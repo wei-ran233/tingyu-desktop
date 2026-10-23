@@ -1,3 +1,4 @@
+import { APP_NAME } from '../appIdentity'
 
 const easeInOutQuad = (t: number, b: number, c: number, d: number): number => {
   t /= d / 2
@@ -342,7 +343,7 @@ export const scrollXRTo = (element: ScrollElement<HTMLElement>, to: number, dura
   */
 let dom_title = document.getElementsByTagName('title')[0]
 export const setTitle = (title: string | null) => {
-  title ||= 'LX Music'
+  title ||= APP_NAME
   dom_title.innerText = title
 }
 

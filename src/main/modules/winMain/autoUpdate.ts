@@ -3,9 +3,15 @@ import { log, isWin } from '@common/utils'
 import { mainOn } from '@common/mainIpc'
 import { isExistWindow, sendEvent } from './index'
 import { WIN_MAIN_RENDERER_EVENT_NAME } from '@common/ipcNames'
+import { APP_NAME_EN, REPOSITORY_NAME, REPOSITORY_OWNER } from '@common/appIdentity'
 
 autoUpdater.logger = log
 autoUpdater.autoDownload = false
+autoUpdater.setFeedURL({
+  provider: 'github',
+  owner: REPOSITORY_OWNER,
+  repo: REPOSITORY_NAME,
+})
 // autoUpdater.forceDevUpdateConfig = true
 // autoUpdater.autoDownload = false
 
@@ -67,6 +73,15 @@ interface WaitEvent {
   info: any
 }
 
+interface UpdaterError extends Error {
+  code?: string
+}
+
+const isMissingPublishedRelease = (error: UpdaterError) => [
+  'ERR_UPDATER_LATEST_VERSION_NOT_FOUND',
+  'ERR_UPDATER_NO_PUBLISHED_VERSIONS',
+].includes(error.code ?? '')
+
 // let waitEvent: WaitEvent[] = []
 const handleSendEvent = (action: WaitEvent) => {
   if (isExistWindow()) {
@@ -89,6 +104,11 @@ export default () => {
     handleSendEvent({ type: WIN_MAIN_RENDERER_EVENT_NAME.update_not_available, info })
   })
   autoUpdater.on('error', err => {
+    if (isMissingPublishedRelease(err)) {
+      sendStatusToWindow(`No published ${APP_NAME_EN} release is available.`)
+      handleSendEvent({ type: WIN_MAIN_RENDERER_EVENT_NAME.update_not_available, info: null })
+      return
+    }
     sendStatusToWindow('Error in auto-updater.')
     handleSendEvent({ type: WIN_MAIN_RENDERER_EVENT_NAME.update_error, info: err.message })
   })
@@ -142,6 +162,7 @@ const checkUpdate = () => {
     handleSendEvent({ type: WIN_MAIN_RENDERER_EVENT_NAME.update_error, info: 'failed' })
   } else {
     autoUpdater.autoDownload = global.lx.appSetting['common.tryAutoUpdate']
-    void autoUpdater.checkForUpdates()
+    // Network and release errors are emitted through the updater's error event.
+    void autoUpdater.checkForUpdates().catch(() => {})
   }
 }

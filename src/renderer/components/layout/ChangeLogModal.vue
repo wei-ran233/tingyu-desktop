@@ -22,7 +22,7 @@ material-modal(:show="isShowChangeLog" max-width="60%" @close="isShowChangeLog =
         p
           SvgIcon(name="light")
           |  若遇到问题可以阅读
-          strong.hover.underline(aria-label="点击打开" @click="openUrl('https://lyswhut.github.io/lx-music-doc/desktop/faq')") 桌面版常见问题
+          strong.hover.underline(aria-label="点击打开" @click="openUrl('https://github.com/wei-ran233/tingyu-desktop/tree/main/doc')") 听域文档
           | 。
         p(v-if="!info.isLatest")
           SvgIcon(name="upload")

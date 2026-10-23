@@ -1,4 +1,49 @@
 const modules = {
+  plugin: {
+    native_bundles: 'plugin:native_bundles',
+    restore_bundled: 'plugin:restore_bundled',
+    list: 'plugin:list',
+    install: 'plugin:install',
+    confirm_install: 'plugin:confirm_install',
+    cancel_install: 'plugin:cancel_install',
+    uninstall: 'plugin:uninstall',
+    set_enabled: 'plugin:set_enabled',
+    retry_view: 'plugin:retry_view',
+    rollback: 'plugin:rollback',
+    confirm_command: 'plugin:confirm_command',
+    host_environment: 'plugin:host_environment',
+    get_pages: 'plugin:get_pages',
+    get_settings: 'plugin:get_settings',
+    set_setting: 'plugin:set_setting',
+    reset_settings: 'plugin:reset_settings',
+    credential_status: 'plugin:credential_status',
+    set_credential: 'plugin:set_credential',
+    remove_credential: 'plugin:remove_credential',
+    clear_credentials: 'plugin:clear_credentials',
+    export_settings: 'plugin:export_settings',
+    import_settings: 'plugin:import_settings',
+    search_actions: 'plugin:search_actions',
+    search_ui: 'plugin:search_ui',
+    theme_resources: 'plugin:theme_resources',
+    render_search_ui: 'plugin:render_search_ui',
+    run_search_action: 'plugin:run_search_action',
+    search_suggestions: 'plugin:search_suggestions',
+    process_search: 'plugin:process_search',
+    runtime_events: 'plugin:runtime_events',
+    show_view: 'plugin:show_view',
+    hide_view: 'plugin:hide_view',
+    set_view_bounds: 'plugin:set_view_bounds',
+    view_state: 'plugin:view_state',
+    view_event: 'plugin:view_event',
+    theme_change: 'plugin:theme_change',
+    request: 'plugin:request',
+  },
+  collection: {
+    plugin_request: 'collection:plugin_request',
+    plugin_response: 'collection:plugin_response',
+    publish_snapshot: 'collection:publish_snapshot',
+    host_state: 'collection:host_state',
+  },
   common: {
     get_env_params: 'get_env_params',
     deeplink: 'deeplink',
@@ -198,3 +243,5 @@ export const DISLIKE_EVENT_NAME = modules.dislike
 export const WIN_MAIN_RENDERER_EVENT_NAME = modules.winMain
 export const WIN_LYRIC_RENDERER_EVENT_NAME = modules.winLyric
 export const HOTKEY_RENDERER_EVENT_NAME = modules.hotKey
+export const PLUGIN_EVENT_NAME = modules.plugin
+export const COLLECTION_EVENT_NAME = modules.collection

@@ -1,28 +1,41 @@
-name: Run build test
+name: Validate Tingyu
 
 on:
+  push:
+    branches: [main]
   pull_request:
-    branches:
-      - dev
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: tingyu-checks-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
-  test:
+  validate:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Check out git repository
-        uses: actions/checkout@v6
-
-      - name: Install Node.js
-        uses: actions/setup-node@v6
+      - uses: actions/checkout@v6
+      - uses: actions/setup-node@v6
         with:
           node-version: 22
-
-      - name: Install Dependencies
+          cache: npm
+      - name: Install dependencies
         run: npm ci
-
-      - name: Eslint check
-        run: npm run lint
-
-      - name: Test Build
-        run: npm run build
+      - name: Contract and adapter checks
+        run: npm run test:collection
+      - name: Update state regression
+        run: npm run test:update
+      - name: Main type check
+        run: npx tsc -p src/main/tsconfig.json --noEmit
+      - name: Renderer type check
+        run: npx tsc -p src/renderer/tsconfig.json --noEmit
+      - name: Build application sources and preloads
+        run: |
+          npm run build:main
+          npm run build:renderer
+          npm run build:renderer-lyric
+          npm run build:renderer-scripts

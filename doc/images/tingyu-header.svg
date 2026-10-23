@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="360" viewBox="0 0 1280 360" role="img" aria-labelledby="title desc">
+<title id="title">听域 Tingyu</title><desc id="desc">音乐、对话与开放扩展的桌面空间</desc>
+<rect width="1280" height="360" rx="24" fill="#f0f6f2"/>
+<path d="M870 0c90 100 90 260 0 360M970 0c90 100 90 260 0 360M1070 0c90 100 90 260 0 360" stroke="#d8e7dd" stroke-width="2" fill="none"/>
+<rect x="72" y="92" width="144" height="144" rx="34" fill="#173e35"/>
+<g transform="translate(72 92) scale(.28125)" fill="#d6f5df"><path d="M144 156h186v42h-72v158h-44V198h-70z"/><path d="M310 224c28 18 28 46 0 64l22 30c51-34 51-90 0-124z"/><path d="M352 174c68 46 68 118 0 164l22 30c92-62 92-162 0-224z"/></g>
+<text x="260" y="161" fill="#173e35" font-family="sans-serif" font-size="58" font-weight="650">听域 <tspan font-size="42" font-weight="400">Tingyu</tspan></text>
+<text x="264" y="215" fill="#496659" font-family="sans-serif" font-size="23">音乐、对话与开放扩展的桌面空间</text>
+<text x="264" y="268" fill="#6a8074" font-family="monospace" font-size="15">DESKTOP MUSIC · AI RADIO · PLUGIN PLATFORM</text>
+</svg>

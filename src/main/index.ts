@@ -23,9 +23,9 @@ const init = () => {
 }
 
 initGlobalData()
+setUserDataPath()
 initSingleInstanceHandle()
 applyElectronEnvParams()
-setUserDataPath()
 registerDeeplink(init)
 listenerAppEvent(init)
 

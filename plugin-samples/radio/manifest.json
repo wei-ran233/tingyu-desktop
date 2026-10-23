@@ -1,0 +1,22 @@
+{
+  "id": "lx.radio",
+  "name": "听域电台",
+  "version": "1.0.0",
+  "apiVersion": "1.2.0",
+  "description": "独立电台插件：音乐对话、推荐、语音播报、天气与偏好设置。默认启用，依赖官方播放器。",
+  "author": "听域",
+  "main": "index.html",
+  "icon": "icon.svg",
+  "permissions": [],
+  "nativeBundle": {
+    "id": "lx.radio",
+    "buildHash": "pending"
+  },
+  "dependencies": [
+    {
+      "id": "lx.official-suite",
+      "minVersion": "1.0.0",
+      "maxVersionExclusive": "2.0.0"
+    }
+  ]
+}

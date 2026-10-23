@@ -50,27 +50,27 @@ const originalStorage = globalThis.localStorage
 const originalNow = Date.now
 try {
   globalThis.localStorage = ports.localStorage
-  const listening = await compile('src/renderer/utils/dj/listeningProfile.ts')
-  const profile = await compile('src/renderer/utils/dj/userProfile.ts', {
+  const listening = await compile('src/renderer/bundles/radio/utils/listeningProfile.ts')
+  const profile = await compile('src/renderer/bundles/radio/utils/userProfile.ts', {
     "'./listeningProfile'": JSON.stringify(listening.url),
     "'@renderer/store/list/action'": JSON.stringify(portsUrl),
     "'@common/constants'": JSON.stringify(portsUrl),
     "'@common/utils/vueTools'": JSON.stringify(portsUrl),
     "'@renderer/store/list/state'": JSON.stringify(portsUrl),
-    "'@renderer/store/dj'": JSON.stringify(portsUrl),
+    "'@renderer/bundles/radio/store'": JSON.stringify(portsUrl),
   })
-  const template = await compile('src/renderer/utils/dj/templateEngine.ts', {
+  const template = await compile('src/renderer/bundles/radio/utils/templateEngine.ts', {
     "'@renderer/store/list/state'": JSON.stringify(portsUrl),
-    "'@renderer/store/dj'": JSON.stringify(portsUrl),
-    "'@renderer/utils/dj/userProfile'": JSON.stringify(profile.url),
+    "'@renderer/bundles/radio/store'": JSON.stringify(portsUrl),
+    "'@renderer/bundles/radio/utils/userProfile'": JSON.stringify(profile.url),
   })
-  const executor = await compile('src/renderer/utils/dj/ai/toolExecutor.ts', Object.fromEntries([
+  const executor = await compile('src/renderer/bundles/radio/utils/ai/toolExecutor.ts', Object.fromEntries([
     '@common/utils/vueTools', '@renderer/utils/musicSdk', '@renderer/utils', '@renderer/core/music',
     '@renderer/core/player', '@renderer/store/player/action', '@renderer/store/player/state',
     '@renderer/store/list/action', '@common/constants',
   ].map(path => [`'${path}'`, JSON.stringify(portsUrl)]).concat([
-    ["'@renderer/utils/dj/templateEngine'", JSON.stringify(template.url)],
-    ["'@renderer/utils/dj/userProfile'", JSON.stringify(profile.url)],
+    ["'@renderer/bundles/radio/utils/templateEngine'", JSON.stringify(template.url)],
+    ["'@renderer/bundles/radio/utils/userProfile'", JSON.stringify(profile.url)],
   ])))
   const { searchMusicTrack, playMusicTrack, executeToolAction } = executor.module
   const song = (id, name, singer = '歌手') => ({ id, name, singer, source: 'kw', meta: {} })
@@ -173,21 +173,21 @@ try {
     await assert.rejects(() => executeToolAction('search_and_play', { keyword: 'retry', immediatePlay: true }, { signal: controller.signal }), { name: 'AbortError' })
     assert.equal(ports.events.length, before)
   })
-  const chat = await compile('src/renderer/composables/useDjChat.ts', Object.fromEntries([
-    '@common/utils/vueTools', '@renderer/store/dj', '@renderer/utils/dj/ai/modelsManager',
-    '@renderer/utils/dj/llmService', '@renderer/utils/dj/ttsService', '@renderer/core/player/djAudio',
+  const chat = await compile('src/renderer/bundles/radio/composables/useDjChat.ts', Object.fromEntries([
+    '@common/utils/vueTools', '@renderer/bundles/radio/store', '@renderer/bundles/radio/utils/ai/modelsManager',
+    '@renderer/bundles/radio/utils/llmService', '@renderer/bundles/radio/utils/ttsService', '@renderer/bundles/radio/player/djAudio',
     '@renderer/store/player/action', '@renderer/store/player/state', '@renderer/store/list/state', '@renderer/store/list/action',
-    '@common/constants', '@renderer/composables/useDjWeather',
+    '@common/constants', '@renderer/bundles/radio/composables/useDjWeather',
   ].map(path => [`'${path}'`, JSON.stringify(portsUrl)]).concat([
-    ["'@renderer/utils/dj/templateEngine'", JSON.stringify(template.url)],
-    ["'@renderer/utils/dj/ai/toolExecutor'", JSON.stringify(executor.url)],
+    ["'@renderer/bundles/radio/utils/templateEngine'", JSON.stringify(template.url)],
+    ["'@renderer/bundles/radio/utils/ai/toolExecutor'", JSON.stringify(executor.url)],
   ])))
   const c = chat.module.useDjChat()
-  const audio = await compile('src/renderer/core/player/djAudio.ts', {
+  const audio = await compile('src/renderer/bundles/radio/player/djAudio.ts', {
     "'@renderer/plugins/player'": JSON.stringify(portsUrl),
     "'@renderer/store/setting'": JSON.stringify(portsUrl),
-    "'@renderer/store/dj'": JSON.stringify(portsUrl),
-    "'@renderer/composables/useDjChat'": JSON.stringify(chat.url),
+    "'@renderer/bundles/radio/store'": JSON.stringify(portsUrl),
+    "'@renderer/bundles/radio/composables/useDjChat'": JSON.stringify(chat.url),
   })
   // Run the production ended handler and temporary-queue branch of playNext.
   const loadFunction = async(path, name, dependencies) => {
@@ -209,9 +209,9 @@ try {
     handlePlayNext: entry => nextTracks.push(entry.musicInfo.id),
     console: { log() {} },
   })
-  const handleEnded = await loadFunction('src/renderer/core/useApp/usePlayer/usePlayer.ts', 'handleEnded', {
+  const handleEnded = await loadFunction('src/renderer/bundles/official/services/runtime/usePlayer/usePlayer.ts', 'handleEnded', {
     setAllStatus() {}, t: value => value, window: { lx: { isPlayedStop: false } },
-    notifyDjSongEnded: audio.module.notifyDjSongEnded, playNext,
+    notifyPlaybackEnded: audio.module.notifyDjSongEnded, notifyPlaybackObservation: () => {}, playNext,
     listeningTracker: { tick() {} }, resetListeningSession() {}, getCurrentTime: () => 0, getDuration: () => 180, isPlay: { value: true },
   })
   await check('deleting a message aborts the stream before stale callbacks can update shifted entries', async() => {

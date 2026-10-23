@@ -3,13 +3,14 @@ const chalk = require('chalk')
 const { jp, copyFile } = require('./index')
 
 const buildDir = '../../build'
+const assetsDir = '../assets'
 
 
 const getBuildFileName = () => {
   const names = []
   const pathRegExp = [
-    /latest\.yml$/,
-    /\.exe$/,
+    /^latest(?:-mac|-linux)?\.ya?ml$/i,
+    /\.(?:exe|dmg|AppImage|deb|rpm|zst|7z|zip)$/i,
     /\.blockmap$/,
   ]
   const files = fs.readdirSync(jp(buildDir), 'utf8')
@@ -22,14 +23,15 @@ const getBuildFileName = () => {
 }
 
 const copy = names => {
-  const tasks = names.map(name => copyFile(jp(buildDir, name), jp('../assets', name)))
+  const tasks = names.map(name => copyFile(jp(buildDir, name), jp(assetsDir, name)))
   return Promise.all(tasks)
 }
 
 
 module.exports = (isCopyVersion = true) => {
+  fs.mkdirSync(jp(assetsDir), { recursive: true })
   copy(getBuildFileName()).then(() => {
-    if (isCopyVersion) fs.writeFileSync(jp('../assets/version.json'), JSON.stringify(require('../version.json')), 'utf8')
+    if (isCopyVersion) fs.writeFileSync(jp(assetsDir, 'version.json'), JSON.stringify(require('../version.json')), 'utf8')
   }).catch(err => {
     console.log(err)
     console.log(chalk.red('File copy failed.'))

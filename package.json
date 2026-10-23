@@ -1,6 +1,7 @@
 {
-  "name": "lx-music-desktop",
-  "desktopName": "lx-music-desktop.desktop",
+  "name": "tingyu-desktop",
+  "productName": "听域",
+  "desktopName": "tingyu-desktop.desktop",
   "version": "2.12.3-beta.12",
   "description": "一个免费的音乐查找助手",
   "main": "./dist/main.js",
@@ -57,17 +58,46 @@
     "publish:linux:pacman": "node build-config/build-pack.js target=linux arch=x64 type=pacman publish=always",
     "dev": "cross-env NODE_OPTIONS=--max-http-header-size=200000 node build-config/runner-dev.js",
     "build:theme": "node src/common/theme/createThemes.js",
+    "build:plugins": "node build-config/plugins/build-plugin-packages.js",
     "build": "node build-config/pack.js",
     "build:main": "cross-env NODE_ENV=production webpack --config build-config/main/webpack.config.prod.js --progress",
     "build:renderer": "cross-env NODE_ENV=production webpack --config build-config/renderer/webpack.config.prod.js --progress",
     "build:renderer-lyric": "cross-env NODE_ENV=production webpack --config build-config/renderer-lyric/webpack.config.prod.js --progress",
     "build:renderer-scripts": "cross-env NODE_ENV=production webpack --config build-config/renderer-scripts/webpack.config.prod.js --progress",
+    "test:collection": "webpack --config build-config/tests/webpack.config.js --no-stats && node dist/tests/collection-tests.js && node build-config/tests/collection-adapters.test.cjs",
     "test:dj": "node build-config/tests/dj-ai.test.mjs && node build-config/tests/dj-experience.test.mjs && node build-config/tests/dj-music.test.mjs && node build-config/tests/dj-bugfix.test.mjs && node build-config/tests/dj-profile.test.cjs && node build-config/tests/dj-speech-playback.test.cjs && node build-config/tests/dj-speech-ipc.test.cjs",
     "lint": "eslint --ext .ts,.js,.vue -f node_modules/eslint-formatter-friendly src",
     "lint:fix": "eslint --ext .ts,.js,.vue -f node_modules/eslint-formatter-friendly --fix src",
     "postinstall": "electron-builder install-app-deps",
     "dp": "cross-env ELECTRON_GET_USE_PROXY=true GLOBAL_AGENT_HTTPS_PROXY=http://127.0.0.1:2081 npm run pack",
-    "up": "cross-env ELECTRON_GET_USE_PROXY=true GLOBAL_AGENT_HTTPS_PROXY=http://127.0.0.1:2081 npm i"
+    "up": "cross-env ELECTRON_GET_USE_PROXY=true GLOBAL_AGENT_HTTPS_PROXY=http://127.0.0.1:2081 npm i",
+    "build:plugins:release": "node build-config/plugins/build-plugin-packages.js --release",
+    "test:plugins:electron": "electron --ozone-platform=x11 build-config/tests/plugin-electron-smoke.cjs",
+    "test:collection:app": "electron --ozone-platform=x11 build-config/tests/collection-app-smoke.cjs",
+    "predev": "npm run build:plugins",
+    "prebuild:main": "npm run build:plugins",
+    "prebuild:renderer": "npm run build:plugins",
+    "pretest:collection": "npm run build:plugins",
+    "test:features": "node build-config/tests/feature-runtime.test.cjs",
+    "test:radio": "node build-config/tests/radio-plugin.test.cjs",
+    "test:music-api": "node build-config/tests/music-api-boundaries.test.cjs",
+    "test:api:live": "electron --ozone-platform=x11 build-config/tests/api-live-smoke.cjs",
+    "test:play-detail": "node build-config/tests/play-detail.test.cjs",
+    "test:play-detail:live": "electron --ozone-platform=x11 build-config/tests/play-detail-live.cjs",
+    "test:theme": "node build-config/tests/theme-studio.test.cjs",
+    "test:theme:app": "electron --ozone-platform=x11 build-config/tests/theme-studio-app.cjs",
+    "test:plugin-settings:app": "electron --ozone-platform=x11 build-config/tests/plugin-settings-app.cjs",
+    "test:plugin-lifecycle:app": "electron --ozone-platform=x11 build-config/tests/plugin-lifecycle-app.cjs",
+    "test:plugin-events:app": "electron --ozone-platform=x11 build-config/tests/plugin-events-app.cjs",
+    "test:plugin-ui:app": "electron --ozone-platform=x11 build-config/tests/plugin-ui-app.cjs",
+    "test:theme-resources:app": "electron --ozone-platform=x11 build-config/tests/theme-resources-app.cjs",
+    "test:plugin-optional:app": "electron --ozone-platform=x11 build-config/tests/plugin-optional-app.cjs",
+    "test:plugin-settings-transfer:app": "electron --ozone-platform=x11 build-config/tests/plugin-settings-transfer-app.cjs",
+    "test:plugin-settings-migration:app": "electron --ozone-platform=x11 build-config/tests/plugin-settings-migration-app.cjs",
+    "test:plugin-credentials:app": "electron --ozone-platform=x11 build-config/tests/plugin-credentials-app.cjs",
+    "test:identity:app": "electron --ozone-platform=x11 build-config/tests/tingyu-identity-app.cjs",
+    "test:plugin-impact:app": "electron --ozone-platform=x11 build-config/tests/plugin-install-impact-app.cjs",
+    "test:update": "node build-config/tests/tingyu-update.test.cjs"
   },
   "browserslist": [
     "Electron 22.3.0"
@@ -78,21 +108,21 @@
   },
   "macLanguagesInfoPlistStrings": {
     "en": {
-      "CFBundleDisplayName": "LX Music",
-      "CFBundleName": "LX Music"
+      "CFBundleDisplayName": "Tingyu",
+      "CFBundleName": "Tingyu"
     },
     "zh_CN": {
-      "CFBundleDisplayName": "LX Music",
-      "CFBundleName": "LX Music"
+      "CFBundleDisplayName": "听域",
+      "CFBundleName": "Tingyu"
     },
     "zh_TW": {
-      "CFBundleDisplayName": "LX Music",
-      "CFBundleName": "LX Music"
+      "CFBundleDisplayName": "听域",
+      "CFBundleName": "Tingyu"
     }
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/lyswhut/lx-music-desktop.git"
+    "url": "git+https://github.com/wei-ran233/tingyu-desktop.git"
   },
   "keywords": [
     "music-player",
@@ -100,14 +130,14 @@
     "vuejs3"
   ],
   "author": {
-    "name": "lyswhut",
-    "email": "lyswhut@qq.com"
+    "name": "Tingyu",
+    "url": "https://github.com/wei-ran233"
   },
   "license": "Apache-2.0",
   "bugs": {
-    "url": "https://github.com/lyswhut/lx-music-desktop/issues"
+    "url": "https://github.com/wei-ran233/tingyu-desktop/issues"
   },
-  "homepage": "https://github.com/lyswhut/lx-music-desktop#readme",
+  "homepage": "https://github.com/wei-ran233/tingyu-desktop#readme",
   "devDependencies": {
     "@tsconfig/recommended": "^1.0.13",
     "@types/better-sqlite3": "^7.6.13",

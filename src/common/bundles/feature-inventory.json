@@ -1,0 +1,188 @@
+[
+  {
+    "id": "search",
+    "title": "search",
+    "feature": "./features/Search/index.js",
+    "renderer": "./views/Search/index.vue"
+  },
+  {
+    "id": "songlists",
+    "title": "song_list",
+    "feature": "./features/songList/List/index.ts",
+    "renderer": "./views/songList/List/index.vue"
+  },
+  {
+    "id": "leaderboard",
+    "title": "leaderboard",
+    "feature": "./features/Leaderboard/index.js",
+    "renderer": "./views/Leaderboard/index.vue"
+  },
+  {
+    "id": "list",
+    "title": "my_list",
+    "feature": "./features/List/index.js",
+    "renderer": "./views/List/index.vue"
+  },
+  {
+    "id": "download",
+    "title": "download",
+    "feature": "./features/Download/index.js",
+    "renderer": "./views/Download/index.vue"
+  },
+  {
+    "id": "settings",
+    "title": "setting",
+    "feature": "./features/Setting/index.js",
+    "renderer": "./views/Setting/index.vue"
+  },
+  {
+    "id": "songlist-detail",
+    "title": "song_list",
+    "feature": "./features/songList/Detail/index.ts",
+    "renderer": "./views/songList/Detail/index.vue"
+  },
+  {
+    "id": "settings.basic",
+    "title": "setting__basic",
+    "feature": "./features/Setting/components/SettingBasic.js",
+    "renderer": "./views/Setting/components/SettingBasic.vue"
+  },
+  {
+    "id": "settings.play",
+    "title": "setting__play",
+    "feature": "./features/Setting/components/SettingPlay.js",
+    "renderer": "./views/Setting/components/SettingPlay.vue"
+  },
+  {
+    "id": "settings.play_detail",
+    "title": "setting__play_detail",
+    "feature": "./features/Setting/components/SettingPlayDetail.js",
+    "renderer": "./views/Setting/components/SettingPlayDetail.vue"
+  },
+  {
+    "id": "settings.desktop_lyric",
+    "title": "setting__desktop_lyric",
+    "feature": "./features/Setting/components/SettingDesktopLyric.js",
+    "renderer": "./views/Setting/components/SettingDesktopLyric.vue"
+  },
+  {
+    "id": "settings.search",
+    "title": "setting__search",
+    "feature": "./features/Setting/components/SettingSearch.js",
+    "renderer": "./views/Setting/components/SettingSearch.vue"
+  },
+  {
+    "id": "settings.list",
+    "title": "setting__list",
+    "feature": "./features/Setting/components/SettingList.js",
+    "renderer": "./views/Setting/components/SettingList.vue"
+  },
+  {
+    "id": "settings.download",
+    "title": "setting__download",
+    "feature": "./features/Setting/components/SettingDownload.js",
+    "renderer": "./views/Setting/components/SettingDownload.vue"
+  },
+  {
+    "id": "settings.hot_key",
+    "title": "setting__hot_key",
+    "feature": "./features/Setting/components/SettingHotKey.js",
+    "renderer": "./views/Setting/components/SettingHotKey.vue"
+  },
+  {
+    "id": "settings.sync",
+    "title": "setting__sync",
+    "feature": "./features/Setting/components/SettingSync/index.js",
+    "renderer": "./views/Setting/components/SettingSync/index.vue"
+  },
+  {
+    "id": "settings.open_api",
+    "title": "setting__open_api",
+    "feature": "./features/Setting/components/SettingOpenAPI.js",
+    "renderer": "./views/Setting/components/SettingOpenAPI.vue"
+  },
+  {
+    "id": "settings.network",
+    "title": "setting__network",
+    "feature": "./features/Setting/components/SettingNetwork.js",
+    "renderer": "./views/Setting/components/SettingNetwork.vue"
+  },
+  {
+    "id": "settings.odc",
+    "title": "setting__odc",
+    "feature": "./features/Setting/components/SettingOdc.js",
+    "renderer": "./views/Setting/components/SettingOdc.vue"
+  },
+  {
+    "id": "settings.backup",
+    "title": "setting__backup",
+    "feature": "./features/Setting/components/SettingBackup.js",
+    "renderer": "./views/Setting/components/SettingBackup.vue"
+  },
+  {
+    "id": "settings.other",
+    "title": "setting__other",
+    "feature": "./features/Setting/components/SettingOther.js",
+    "renderer": "./views/Setting/components/SettingOther.vue"
+  },
+  {
+    "id": "settings.update",
+    "title": "setting__update",
+    "feature": "./features/Setting/components/SettingUpdate.js",
+    "renderer": "./views/Setting/components/SettingUpdate.vue"
+  },
+  {
+    "id": "settings.about",
+    "title": "setting__about",
+    "feature": "./features/Setting/components/SettingAbout.js",
+    "renderer": "./views/Setting/components/SettingAbout.vue"
+  },
+  {
+    "id": "playback",
+    "title": "playback",
+    "feature": "./features/shell/PlayBar.js",
+    "renderer": "./renderers/shell/PlayBar.vue"
+  },
+  {
+    "id": "playback.detail",
+    "title": "playback.detail",
+    "feature": "./features/shell/PlayDetail.js",
+    "renderer": "./renderers/shell/PlayDetail.vue"
+  },
+  {
+    "id": "navigation.search",
+    "title": "navigation.search",
+    "feature": "./features/shell/Toolbar.js",
+    "renderer": "./renderers/shell/Toolbar.vue"
+  },
+  {
+    "id": "sync.mode",
+    "title": "sync.mode",
+    "feature": "./features/shell/SyncModeModal.js",
+    "renderer": "./renderers/shell/SyncModeModal.vue"
+  },
+  {
+    "id": "sync.auth",
+    "title": "sync.auth",
+    "feature": "./features/shell/SyncAuthCodeModal.js",
+    "renderer": "./renderers/shell/SyncAuthCodeModal.vue"
+  },
+  {
+    "id": "updates.notice",
+    "title": "updates.notice",
+    "feature": "./features/shell/UpdateModal.js",
+    "renderer": "./renderers/shell/UpdateModal.vue"
+  },
+  {
+    "id": "updates.changelog",
+    "title": "updates.changelog",
+    "feature": "./features/shell/ChangeLogModal.js",
+    "renderer": "./renderers/shell/ChangeLogModal.vue"
+  },
+  {
+    "id": "terms",
+    "title": "terms",
+    "feature": "./features/shell/PactModal.js",
+    "renderer": "./renderers/shell/PactModal.vue"
+  }
+]

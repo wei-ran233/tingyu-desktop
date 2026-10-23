@@ -1,30 +1,41 @@
 <template>
   <div id="container" class="view-container">
+    <theme-backdrop />
+    <theme-icon-definitions />
+    <service-host />
     <layout-aside id="left" />
     <div id="right">
-      <layout-toolbar id="toolbar" />
+      <feature-slot id="toolbar" feature-id="navigation.search" />
       <layout-view id="view" />
-      <layout-play-bar id="player" />
+      <feature-slot id="player" feature-id="playback" />
     </div>
     <layout-icons />
-    <layout-change-log-modal />
-    <layout-update-modal />
-    <layout-pact-modal />
-    <layout-sync-mode-modal />
-    <layout-sync-auth-code-modal />
-    <layout-play-detail />
+    <feature-slot feature-id="updates.changelog" />
+    <feature-slot feature-id="updates.notice" />
+    <feature-slot feature-id="terms" />
+    <feature-slot feature-id="sync.mode" />
+    <feature-slot feature-id="sync.auth" />
+    <feature-slot feature-id="playback.detail" />
   </div>
 </template>
 
 <script setup>
-import { onMounted } from '@common/utils/vueTools'
+import { onMounted, onBeforeUnmount } from '@common/utils/vueTools'
+import ThemeBackdrop from '@renderer/components/theme/ThemeBackdrop.vue'
+import ThemeIconDefinitions from '@renderer/components/theme/ThemeIconDefinitions.vue'
+import { initializePluginThemes } from '@renderer/core/theme'
 // import BubbleCursor from '@common/utils/effects/cursor-effects/bubbleCursor'
 // import '@common/utils/effects/snow.min'
+import ServiceHost from '@renderer/components/feature/ServiceHost.vue'
+import FeatureSlot from '@renderer/components/feature/FeatureSlot.vue'
 import useApp from '@renderer/core/useApp'
 
 useApp()
+let disposeThemes
+onBeforeUnmount(() => { disposeThemes?.() })
 
 onMounted(() => {
+  disposeThemes = initializePluginThemes()
   document.getElementById('root').style.display = 'block'
 
   // const styles = getComputedStyle(document.documentElement)
@@ -44,6 +55,11 @@ onMounted(() => {
 <style lang="less">
 @import './assets/styles/index.less';
 @import './assets/styles/layout.less';
+@import './assets/styles/pages.less';
+@import './assets/styles/theme-appearance.less';
+@import './assets/styles/theme-identities.less';
+
+/* Each rendering provider owns its density; never scale nested function views globally. */
 
 html {
   height: 100vh;

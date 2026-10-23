@@ -32,6 +32,7 @@
                 @click="handleListItemClick($event, index)" @contextmenu="handleListItemRightClick($event, index)"
               >
                 <div class="list-item-cell no-select num" style="flex: 0 0 5%;" @click.stop>{{ index + 1 }}</div>
+                <span v-if="$themeIdentity && $themeIdentity !== 'signal'" class="theme-track-art" aria-hidden="true"><img v-if="item.meta?.picUrl" :src="item.meta.picUrl" alt="" loading="lazy"><theme-brand v-else compact /></span>
                 <div class="list-item-cell auto name">
                   <span class="select name" :aria-label="item.name">{{ item.name }}</span>
                   <span v-if="item.meta._qualitys.flac24bit" class="no-select badge badge-theme-primary">{{ $t('tag__lossless_24bit') }}</span>
@@ -60,6 +61,7 @@
                 @click="handleListItemClick($event, index)" @contextmenu="handleListItemRightClick($event, index)"
               >
                 <div class="list-item-cell no-select num" style="flex: 0 0 5%;" @click.stop>{{ index + 1 }}</div>
+                <span v-if="$themeIdentity && $themeIdentity !== 'signal'" class="theme-track-art" aria-hidden="true"><img v-if="item.meta?.picUrl" :src="item.meta.picUrl" alt="" loading="lazy"><theme-brand v-else compact /></span>
                 <div class="list-item-cell auto name">
                   <span class="select name" :aria-label="item.name">{{ item.name }}</span>
                   <span v-if="item.meta._qualitys.flac24bit" class="no-select badge badge-theme-primary">{{ $t('tag__lossless_24bit') }}</span>

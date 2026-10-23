@@ -1,0 +1,26 @@
+[
+  {
+    "id": "general",
+    "titleKey": "setting_group_general"
+  },
+  {
+    "id": "playback",
+    "titleKey": "setting_group_playback"
+  },
+  {
+    "id": "library",
+    "titleKey": "setting_group_library"
+  },
+  {
+    "id": "radio",
+    "titleKey": "setting_group_radio"
+  },
+  {
+    "id": "connection",
+    "titleKey": "setting_group_connection"
+  },
+  {
+    "id": "maintenance",
+    "titleKey": "setting_group_maintenance"
+  }
+]

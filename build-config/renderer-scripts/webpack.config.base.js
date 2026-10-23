@@ -5,6 +5,8 @@ module.exports = {
   target: 'electron-renderer',
   entry: {
     'user-api-preload': path.join(__dirname, '../../src/main/modules/userApi/renderer/preload.js'),
+    'plugin-preload': path.join(__dirname, '../../src/main/modules/plugin/renderer/preload.ts'),
+    'plugin-runtime-preload': path.join(__dirname, '../../src/main/modules/plugin/renderer/runtimePreload.ts'),
   },
   output: {
     filename: '[name].js',

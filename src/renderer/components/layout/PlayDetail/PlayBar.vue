@@ -17,20 +17,20 @@
     <div :class="$style.playControl">
       <div :class="$style.playBtn" :aria-label="$t('player__prev')" @click="playPrev()">
         <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" height="100%" viewBox="0 0 1024 1024" space="preserve">
-          <use xlink:href="#icon-prevMusic" />
+          <use :xlink:href="$themeIconRef('#icon-prevMusic')" />
         </svg>
       </div>
       <div :class="$style.playBtn" :aria-label="isPlay ? $t('player__pause') : $t('player__play')" @click="togglePlay">
         <svg v-if="isPlay" version="1.1" xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" height="100%" viewBox="0 0 1024 1024" space="preserve">
-          <use xlink:href="#icon-pause" />
+          <use :xlink:href="$themeIconRef('#icon-pause')" />
         </svg>
         <svg v-else version="1.1" xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" height="100%" viewBox="0 0 1024 1024" space="preserve">
-          <use xlink:href="#icon-play" />
+          <use :xlink:href="$themeIconRef('#icon-play')" />
         </svg>
       </div>
       <div :class="$style.playBtn" :aria-label="$t('player__next')" @click="playNext()">
         <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" height="100%" viewBox="0 0 1024 1024" space="preserve">
-          <use xlink:href="#icon-nextMusic" />
+          <use :xlink:href="$themeIconRef('#icon-nextMusic')" />
         </svg>
       </div>
     </div>

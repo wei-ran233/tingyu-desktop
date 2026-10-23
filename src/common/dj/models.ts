@@ -10,7 +10,7 @@ import { googleProvider } from '@earendil-works/pi-ai/providers/google'
 import { groqProvider } from '@earendil-works/pi-ai/providers/groq'
 import { openrouterProvider } from '@earendil-works/pi-ai/providers/openrouter'
 import { opencodeGoProvider } from '@earendil-works/pi-ai/providers/opencode-go'
-import type { DjSettingsState } from '../../renderer/utils/dj/types'
+import type { DjSettingsState } from '../../renderer/bundles/radio/utils/types'
 
 export type ModelSettings = Pick<DjSettingsState, 'selectedModel' | 'customModelName' | 'activeModel' | 'baseUrl' | 'apiKey' | 'localAiHost' | 'localAiModel'>
 
@@ -100,7 +100,7 @@ export function getProviderModels(selected: string): ProviderModelOption[] {
 }
 
 export const modelRequestHeaders = (model: Model<Api>, sessionId: string): Record<string, string> | undefined => model.provider === 'opencode-go'
-  ? { 'x-opencode-session': sessionId, 'User-Agent': 'LX-Music/2.12.3 (AI Radio)' }
+  ? { 'x-opencode-session': sessionId, 'User-Agent': 'Tingyu (AI Radio)' }
   : undefined
 
 /** Read the actual endpoint, not a static input hint. Never persist or return keys. */

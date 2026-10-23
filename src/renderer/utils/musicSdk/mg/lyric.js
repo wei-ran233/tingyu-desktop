@@ -74,9 +74,10 @@ const mrcTools = {
     return this.getText(url)
   },
   async getMusicInfo(songInfo) {
-    return songInfo.mrcUrl == null
-      ? getMusicInfo(songInfo.songmid)
-      : songInfo
+    if (songInfo.mrcUrl || songInfo.lrcUrl) return songInfo
+    const info = await getMusicInfo(songInfo.copyrightId || songInfo.songmid)
+    if (!info) throw new Error('未找到该歌曲的歌词信息')
+    return info
   },
   getLyric(songInfo) {
     return {

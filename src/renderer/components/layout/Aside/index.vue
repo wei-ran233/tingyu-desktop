@@ -1,7 +1,8 @@
 <template>
   <div :class="[$style.aside, { [$style.fullscreen]: isFullscreen }]">
     <ControlBtns v-if="appSetting['common.controlBtnPosition'] == 'left'" />
-    <div v-else :class="$style.logo">L X</div>
+    <theme-brand v-if="$themeIdentity" class="theme-aside-brand" :compact="$themeIdentity === 'signal'" />
+    <div v-else-if="appSetting['common.controlBtnPosition'] !== 'left'" :class="$style.logo">TY</div>
     <NavBar />
   </div>
 </template>

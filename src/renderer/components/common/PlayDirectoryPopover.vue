@@ -2,7 +2,7 @@
   <material-popup-btn :class="$style.btnContent">
     <button :class="$style.btn" :aria-label="$t('play_directory')" :title="$t('play_directory')">
       <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" width="100%" viewBox="0 0 247.498 247.498" space="preserve">
-        <use xlink:href="#icon-musicFolder" />
+        <use :xlink:href="$themeIconRef('#icon-musicFolder')" />
       </svg>
     </button>
     <template #content>
@@ -35,7 +35,7 @@
           >
             <div :class="$style.indexCol">
               <svg v-if="getItemMusicId(item) == currentMusicId" version="1.1" xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" viewBox="0 0 291.063 291.064" :class="$style.playingIcon">
-                <use xlink:href="#icon-sound" />
+                <use :xlink:href="$themeIconRef('#icon-sound')" />
               </svg>
               <span v-else>{{ index + 1 }}</span>
             </div>
@@ -51,7 +51,7 @@
 
             <button :class="$style.removeBtn" :aria-label="$t('list__remove')" :title="$t('list__remove')" @click.stop="handleRemoveSong(item)">
               <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" viewBox="0 0 212.982 212.982" space="preserve">
-                <use xlink:href="#icon-delete" />
+                <use :xlink:href="$themeIconRef('#icon-delete')" />
               </svg>
             </button>
           </div>

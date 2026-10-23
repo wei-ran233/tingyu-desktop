@@ -2,6 +2,7 @@ import { computed, watch, ref, onBeforeUnmount, type Ref } from '@common/utils/v
 import { isFullscreen } from '@renderer/store'
 import { appSetting } from '@renderer/store/setting'
 import { getEffectiveFontSize } from '@renderer/utils'
+import { themeIdentity } from '@renderer/core/theme/identity'
 
 const useKeyEvent = ({ handleSelectAllData, listRef }: {
   handleSelectAllData: () => void
@@ -58,7 +59,8 @@ export default ({ props, listRef }: {
   const selectedList = ref<LX.Music.MusicInfoOnline[]>([])
   let lastSelectIndex = -1
   const listItemHeight = computed(() => {
-    return Math.ceil(getEffectiveFontSize(appSetting['common.fontSize'], appSetting['common.pageScale'], isFullscreen.value) * 2.3)
+    const density = themeIdentity.value === 'tide' ? 4.5 : themeIdentity.value === 'petals' ? 5.1 : themeIdentity.value === 'signal' ? 2.8 : 2.3
+    return Math.ceil(getEffectiveFontSize(appSetting['common.fontSize'], appSetting['common.pageScale'], isFullscreen.value) * density)
   })
 
   const removeAllSelect = () => {

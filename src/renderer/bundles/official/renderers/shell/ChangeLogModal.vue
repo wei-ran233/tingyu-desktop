@@ -1,0 +1,154 @@
+<template lang="pug">
+material-modal(:show="isShowChangeLog" max-width="60%" @close="isShowChangeLog = false")
+  main(:class="$style.main")
+    h2 当前版本更新日志
+    div.scroll.select(:class="$style.info")
+      div(:class="$style.current")
+        h3 当前版本：{{ versionInfo.version }}
+        template(v-if="info.desc")
+          h3 版本变化：
+          pre(:class="$style.desc" v-text="info.desc")
+      div(v-if="info.history.length" :class="[$style.history, $style.desc]")
+        h3 历史版本：
+        div(v-for="(ver, index) in info.history" :key="index" :class="$style.item")
+          h4 v{{ ver.version }}
+          pre(v-text="ver.desc")
+
+    div(:class="$style.footer")
+      div(:class="$style.desc")
+        p
+          SvgIcon(name="light")
+          |  为了减少疑问，我们墙裂建议阅读版本更新日志来了解当前所用版本的变化！
+        p
+          SvgIcon(name="light")
+          |  若遇到问题可以阅读
+          strong.hover.underline(aria-label="点击打开" @click="openUrl('https://github.com/wei-ran233/tingyu-desktop/tree/main/doc')") 听域文档
+          | 。
+        p(v-if="!info.isLatest")
+          SvgIcon(name="upload")
+          |  发现新版本 (v{{ versionInfo.newVersion.version }})！建议去「设置 → 软件更新」更新新版本。
+</template>
+
+
+<style lang="less" module>
+@import '@renderer/assets/styles/layout.less';
+
+.main {
+  position: relative;
+  padding: 15px 0;
+  // max-width: 450px;
+  min-width: 300px;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+  overflow: hidden;
+  // overflow-y: auto;
+  * {
+    box-sizing: border-box;
+  }
+  h2 {
+    flex: 0 0 none;
+    font-size: 16px;
+    color: var(--color-font);
+    line-height: 1.3;
+    text-align: center;
+    margin-bottom: 15px;
+  }
+  h3 {
+    font-size: 14px;
+    line-height: 1.3;
+  }
+  pre {
+    white-space: pre-wrap;
+    text-align: justify;
+    margin-top: 10px;
+  }
+}
+
+.info {
+  flex: 1 1 auto;
+  font-size: 14px;
+  line-height: 1.5;
+  overflow-y: auto;
+  height: 100%;
+  padding: 0 15px;
+}
+.current {
+  > p {
+    padding-left: 15px;
+  }
+}
+
+.desc {
+  h3, h4 {
+    font-weight: bold;
+  }
+  h3 {
+    padding: 5px 0 3px;
+  }
+  ul {
+    list-style: initial;
+    padding-inline-start: 30px;
+  }
+  p {
+    font-size: 14px;
+    line-height: 1.5;
+  }
+}
+
+.history {
+  h3 {
+    padding-top: 15px;
+  }
+
+  .item {
+    h3 {
+      padding: 5px 0 3px;
+    }
+    padding: 0 15px;
+    + .item {
+      padding-top: 15px;
+    }
+    h4 {
+      font-weight: 700;
+    }
+    > p {
+      padding-left: 15px;
+    }
+  }
+
+}
+.footer {
+  flex: 0 0 none;
+  padding: 0 15px;
+  .desc {
+    padding-top: 20px;
+    font-size: 13px;
+    color: var(--color-primary-font);
+    line-height: 1.25;
+
+    p {
+      font-size: 13px;
+      color: var(--color-primary-font);
+      line-height: 1.25;
+    }
+  }
+}
+// .btns {
+//   display: flex;
+//   flex-flow: row nowrap;
+//   gap: 15px;
+// }
+
+// .btn {
+//   margin-top: 10px;
+//   display: block;
+//   width: 100%;
+// }
+// .btn2 {
+//   margin-top: 10px;
+//   display: block;
+//   width: 50%;
+// }
+
+</style>

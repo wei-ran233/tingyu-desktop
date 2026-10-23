@@ -18,6 +18,9 @@ const { Worker, isMainThread, parentPort } = require('worker_threads')
 
 function build() {
   console.time('build')
+  // Generate signatures and the compiled-bundle identity before any webpack
+  // worker reads it. A distributable cannot trust the public sample key.
+  require('node:child_process').execFileSync(process.execPath, [require('node:path').join(__dirname, 'plugins/build-plugin-packages.js'), '--release'], { stdio: 'inherit' })
   try {
     del.sync(['dist/**', 'build/**'])
   } catch (e) {

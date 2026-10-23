@@ -1,0 +1,252 @@
+<template>
+  <div ref="dom_lists" data-library-navigation :class="$style.lists">
+    <div :class="$style.listHeader">
+      <h2 :class="$style.listsTitle">{{ $t('my_list') }}</h2>
+      <div :class="$style.headerBtns">
+        <button :class="$style.listsAdd" :aria-label="$t('lists__new_list_btn')" @click="isShowNewList = true">
+          <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" height="70%" viewBox="0 0 24 24" space="preserve">
+            <use :xlink:href="$themeIconRef('#icon-list-add')" />
+          </svg>
+        </button>
+        <button :class="$style.listsAdd" :aria-label="$t('list_update_modal__title')" @click="isShowListUpdateModal = true">
+          <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" style="transform: rotate(45deg);" height="70%" viewBox="0 0 24 24" space="preserve">
+            <use :xlink:href="$themeIconRef('#icon-refresh')" />
+          </svg>
+        </button>
+      </div>
+    </div>
+    <ul ref="dom_lists_list" class="scroll" :class="[$style.listsContent, { [$style.sortable]: isModDown }]">
+      <li
+        class="default-list" :class="[$style.listsItem, {[$style.active]: defaultList.id == listId}, {[$style.clicked]: rightClickItemIndex == -2}, {[$style.fetching]: fetchingListStatus[defaultList.id]}]"
+        :aria-label="'当前目录'" :aria-selected="defaultList.id == listId"
+        @contextmenu="handleListsItemRigthClick($event, -2)" @click="handleListToggle(defaultList.id)"
+      >
+        <span :class="$style.listsLabel">
+          <transition name="list-active">
+            <svg-icon v-if="defaultList.id == listId" name="angle-right-solid" :class="$style.activeIcon" />
+          </transition>
+          当前目录
+        </span>
+      </li>
+      <li
+        class="default-list" :class="[$style.listsItem, {[$style.active]: loveList.id == listId}, {[$style.clicked]: rightClickItemIndex == -1}, {[$style.fetching]: fetchingListStatus[loveList.id]}]"
+        :aria-label="$t(loveList.name)" :aria-selected="loveList.id == listId"
+        @contextmenu="handleListsItemRigthClick($event, -1)" @click="handleListToggle(loveList.id)"
+      >
+        <span :class="$style.listsLabel">
+          <transition name="list-active">
+            <svg-icon v-if="loveList.id == listId" name="angle-right-solid" :class="$style.activeIcon" />
+          </transition>
+          {{ $t(loveList.name) }}
+        </span>
+      </li>
+      <li
+        class="default-list local-list" :class="[$style.listsItem, {[$style.active]: localList.id == listId}, {[$style.clicked]: rightClickItemIndex == -3}, {[$style.fetching]: fetchingListStatus[localList.id]}]"
+        :aria-label="localList.name.startsWith('list__') ? $t(localList.name) : localList.name" :aria-selected="localList.id == listId"
+        @contextmenu="handleListsItemRigthClick($event, -3)" @click="handleListToggle(localList.id)"
+      >
+        <span :class="$style.listsLabel">
+          <transition name="list-active">
+            <svg-icon v-if="localList.id == listId" name="angle-right-solid" :class="$style.activeIcon" />
+          </transition>
+          {{ localList.name.startsWith('list__') ? $t(localList.name) : localList.name }}
+        </span>
+        <base-input
+          :class="$style.listsInput" type="text" :value="localList.name.startsWith('list__') ? $t(localList.name) : localList.name"
+          @keyup.enter="handleSaveLocalListName($event)" @blur="handleSaveLocalListName($event)"
+        />
+      </li>
+      <li
+        v-for="(item, index) in userLists"
+        :key="item.id" class="user-list"
+        :class="[$style.listsItem, {[$style.active]: item.id == listId}, {[$style.clicked]: rightClickItemIndex == index}, {[$style.fetching]: fetchingListStatus[item.id]}]"
+        :data-index="index" :aria-label="item.name" :aria-selected="defaultList.id == listId" @contextmenu="handleListsItemRigthClick($event, index)"
+      >
+        <span :class="$style.listsLabel" @click="handleListToggle(item.id, index + 2)">
+          <transition name="list-active">
+            <svg-icon v-if="item.id == listId" name="angle-right-solid" :class="$style.activeIcon" />
+          </transition>
+          {{ item.name }}
+        </span>
+        <base-input
+          :class="$style.listsInput" type="text" :value="item.name"
+          :placeholder="item.name" @keyup.enter="handleSaveListName(index, $event)" @blur="handleSaveListName(index, $event)"
+        />
+      </li>
+      <transition enter-active-class="animated-fast slideInLeft" leave-active-class="animated-fast fadeOut" @after-leave="isNewListLeave = false" @after-enter="$refs.dom_listsNewInput.focus()">
+        <li v-if="isShowNewList" :class="[$style.listsItem, $style.listsNew, {[$style.newLeave]: isNewListLeave}]">
+          <base-input
+            ref="dom_listsNewInput" :class="$style.listsInput" type="text" :placeholder="$t('lists__new_list_input')"
+            @keyup.enter="handleCreateList" @blur="handleCreateList"
+          />
+        </li>
+      </transition>
+    </ul>
+    <base-menu v-model="isShowMenu" :menus="menus" :xy="menuLocation" item-name="name" @menu-click="handleMenuClick" />
+    <DuplicateMusicModal v-model:visible="isShowDuplicateMusicModal" :list-info="duplicateListInfo" />
+    <ListSortModal v-model:visible="isShowListSortModal" :list-info="sortListInfo" />
+    <ListUpdateModal v-model:visible="isShowListUpdateModal" />
+  </div>
+</template>
+
+<script lang="js" src="@renderer/bundles/official/features/List/MyList/index.js"></script>
+
+<style lang="less" module>
+@import '@renderer/assets/styles/layout.less';
+
+@lists-item-height: 36px;
+.lists {
+  flex: none;
+  width: var(--layout-list-pane-width);
+  border-right: 1px solid var(--lx-border);
+  background: var(--color-primary-light-900-alpha-500);
+  min-width: 0;
+  display: flex;
+  flex-flow: column nowrap;
+}
+.listHeader {
+  position: relative;
+  display: flex;
+  flex-flow: row nowrap;
+  border-bottom: var(--color-list-header-border-bottom);
+  &:hover {
+    .listsAdd {
+      opacity: 1;
+    }
+  }
+}
+.listsTitle {
+  flex: auto;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 54px;
+  padding: 0 10px;
+  .mixin-ellipsis-1();
+}
+.headerBtns {
+  flex: none;
+  display: flex;
+}
+.listsAdd {
+  // position: absolute;
+  // right: 0;
+  margin-top: 12px;
+  background: none;
+  height: 30px;
+  border: none;
+  &:focus-visible { outline: 2px solid var(--color-primary); outline-offset: 1px; }
+  border-radius: @radius-border;
+  cursor: pointer;
+  opacity: .8;
+  transition: opacity @transition-normal;
+  color: var(--color-button-font);
+  svg {
+    vertical-align: bottom;
+  }
+  &:active {
+    opacity: .7 !important;
+  }
+  &:hover {
+    opacity: .6 !important;
+  }
+}
+.listsContent {
+  flex: auto;
+  min-width: 0;
+  overflow-y: scroll !important;
+  // border-right: 1px solid rgba(0, 0, 0, 0.12);
+
+  &.sortable {
+    * {
+      -webkit-user-drag: element;
+    }
+
+    .listsItem {
+      &:hover, &.active, &.selected, &.clicked {
+        background-color: transparent !important;
+      }
+
+      &.dragingItem {
+        background-color: var(--color-primary-background-hover) !important;
+      }
+    }
+  }
+}
+.listsItem {
+  position: relative;
+  transition: .3s ease;
+  transition-property: color, background-color, opacity;
+  background-color: transparent;
+  &:not(.active) {
+    &:hover {
+      background-color: var(--color-primary-background-hover);
+      cursor: pointer;
+    }
+  }
+  &.active {
+    // background-color:
+    color: var(--color-primary);
+  }
+  &.selected {
+    background-color: var(--color-primary-font-active);
+  }
+  &.clicked {
+    background-color: var(--color-primary-background-hover);
+  }
+  &.fetching {
+    opacity: .5;
+  }
+  &.editing {
+    padding: 0 10px;
+    background-color: var(--color-primary-background-hover);
+    .listsLabel {
+      display: none;
+    }
+    .listsInput {
+      display: block;
+    }
+  }
+}
+.activeIcon {
+  height: .9em;
+  width: .9em;
+  margin-left: -0.45em;
+  vertical-align: -0.05em;
+}
+.listsLabel {
+  display: block;
+  height: @lists-item-height;
+  padding: 0 10px;
+  font-size: 13px;
+  line-height: @lists-item-height;
+  .mixin-ellipsis-1();
+}
+.listsInput {
+  width: 100%;
+  height: @lists-item-height;
+  // border: none;
+  padding: 0;
+  // padding-bottom: 1px;
+  line-height: @lists-item-height;
+  background: none !important;
+  border-radius: 0;
+  // &:focus-visible { outline: 2px solid var(--color-primary); outline-offset: 1px; }
+  font-size: 13px;
+  display: none;
+  // font-family: inherit;
+}
+
+.listsNew {
+  padding: 0 10px;
+  background-color: var(--color-primary-background-hover) !important;
+  .listsInput {
+    display: block;
+  }
+}
+.newLeave {
+  margin-top: -@lists-item-height;
+  z-index: -1;
+}
+
+
+</style>

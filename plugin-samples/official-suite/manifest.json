@@ -1,0 +1,313 @@
+{
+  "id": "lx.official-suite",
+  "name": "听域官方功能整合包",
+  "version": "1.0.0",
+  "apiVersion": "1.7.0",
+  "description": "默认功能、独立渲染提供器、页面和设置。含搜索、列表、歌单、排行榜、下载、播放与设置，默认包含独立电台插件。",
+  "author": "听域",
+  "main": "index.html",
+  "icon": "icon.svg",
+  "permissions": [],
+  "nativeBundle": {
+    "id": "lx.official-suite",
+    "buildHash": "pending"
+  },
+  "extensionPoints": [
+    {
+      "id": "search.query",
+      "version": "1.0.0",
+      "kind": "processor",
+      "input": {
+        "type": "object",
+        "properties": {
+          "text": {
+            "type": "string",
+            "maxLength": 4096
+          }
+        }
+      },
+      "output": {
+        "type": "object",
+        "properties": {
+          "text": {
+            "type": "string",
+            "maxLength": 4096
+          }
+        }
+      }
+    },
+    {
+      "id": "search.suggestions",
+      "version": "1.0.0",
+      "kind": "provider",
+      "input": {
+        "type": "object",
+        "properties": {
+          "source": {
+            "type": "string",
+            "maxLength": 32
+          }
+        }
+      },
+      "output": {
+        "type": "object",
+        "properties": {
+          "suggestions": {
+            "type": "array",
+            "maxItems": 12,
+            "items": {
+              "type": "string",
+              "maxLength": 100
+            }
+          }
+        }
+      }
+    },
+    {
+      "id": "search.suggestions.next",
+      "version": "1.0.0",
+      "kind": "action",
+      "input": {
+        "type": "object",
+        "properties": {
+          "source": {
+            "type": "string",
+            "maxLength": 32
+          }
+        }
+      },
+      "output": {
+        "type": "object",
+        "properties": {
+          "suggestions": {
+            "type": "array",
+            "maxItems": 12,
+            "items": {
+              "type": "string",
+              "maxLength": 100
+            }
+          }
+        }
+      }
+    },
+    {
+      "id": "search.suggestions.renderer",
+      "version": "1.0.0",
+      "kind": "renderer",
+      "input": {
+        "type": "object",
+        "properties": {
+          "source": {
+            "type": "string",
+            "maxLength": 32
+          },
+          "suggestions": {
+            "type": "array",
+            "maxItems": 12,
+            "items": {
+              "type": "string",
+              "maxLength": 100
+            }
+          },
+          "actions": {
+            "type": "array",
+            "maxItems": 12,
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "maxLength": 129
+                },
+                "title": {
+                  "type": "string",
+                  "maxLength": 80
+                }
+              }
+            }
+          }
+        }
+      },
+      "output": {
+        "type": "object",
+        "properties": {
+          "layout": {
+            "type": "string",
+            "maxLength": 8
+          },
+          "heading": {
+            "type": "string",
+            "maxLength": 100
+          },
+          "items": {
+            "type": "array",
+            "maxItems": 24,
+            "items": {
+              "type": "object",
+              "properties": {
+                "label": {
+                  "type": "string",
+                  "maxLength": 100
+                },
+                "command": {
+                  "type": "string",
+                  "maxLength": 8
+                },
+                "value": {
+                  "type": "string",
+                  "maxLength": 129
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "id": "search.suggestions.slot",
+      "version": "1.0.0",
+      "kind": "slot",
+      "input": {
+        "type": "object",
+        "properties": {
+          "source": {
+            "type": "string",
+            "maxLength": 32
+          },
+          "suggestions": {
+            "type": "array",
+            "maxItems": 12,
+            "items": {
+              "type": "string",
+              "maxLength": 100
+            }
+          },
+          "actions": {
+            "type": "array",
+            "maxItems": 12,
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "maxLength": 129
+                },
+                "title": {
+                  "type": "string",
+                  "maxLength": 80
+                }
+              }
+            }
+          }
+        }
+      },
+      "output": {
+        "type": "object",
+        "properties": {
+          "layout": {
+            "type": "string",
+            "maxLength": 8
+          },
+          "heading": {
+            "type": "string",
+            "maxLength": 100
+          },
+          "items": {
+            "type": "array",
+            "maxItems": 24,
+            "items": {
+              "type": "object",
+              "properties": {
+                "label": {
+                  "type": "string",
+                  "maxLength": 100
+                },
+                "command": {
+                  "type": "string",
+                  "maxLength": 8
+                },
+                "value": {
+                  "type": "string",
+                  "maxLength": 129
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "id": "search.suggestions.toolbar",
+      "version": "1.0.0",
+      "kind": "toolbar",
+      "input": {
+        "type": "object",
+        "properties": {
+          "source": {
+            "type": "string",
+            "maxLength": 32
+          },
+          "suggestions": {
+            "type": "array",
+            "maxItems": 12,
+            "items": {
+              "type": "string",
+              "maxLength": 100
+            }
+          },
+          "actions": {
+            "type": "array",
+            "maxItems": 12,
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "maxLength": 129
+                },
+                "title": {
+                  "type": "string",
+                  "maxLength": 80
+                }
+              }
+            }
+          }
+        }
+      },
+      "output": {
+        "type": "object",
+        "properties": {
+          "layout": {
+            "type": "string",
+            "maxLength": 8
+          },
+          "heading": {
+            "type": "string",
+            "maxLength": 100
+          },
+          "items": {
+            "type": "array",
+            "maxItems": 24,
+            "items": {
+              "type": "object",
+              "properties": {
+                "label": {
+                  "type": "string",
+                  "maxLength": 100
+                },
+                "command": {
+                  "type": "string",
+                  "maxLength": 8
+                },
+                "value": {
+                  "type": "string",
+                  "maxLength": 129
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  ]
+}

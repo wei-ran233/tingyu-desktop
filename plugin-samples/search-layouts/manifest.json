@@ -1,0 +1,63 @@
+{
+  "id": "lx.search-layouts",
+  "name": "搜索灵感布局",
+  "version": "1.0.0",
+  "apiVersion": "1.7.0",
+  "defaultEnabled": false,
+  "description": "将同一份搜索灵感数据呈现为列表或卡片，并提供可选附加说明和工具栏。默认关闭，不读取历史、歌单或凭据。",
+  "main": "index.html",
+  "permissions": [
+    "extensions.render",
+    "settings.scoped"
+  ],
+  "dependencies": [
+    {
+      "id": "lx.official-suite",
+      "minVersion": "1.0.0",
+      "maxVersionExclusive": "2.0.0"
+    }
+  ],
+  "runtime": {
+    "entry": "runtime.html",
+    "timeoutMs": 3000
+  },
+  "settings": [
+    {
+      "key": "title",
+      "title": "标题",
+      "type": "string",
+      "default": "发现下一首",
+      "maxLength": 100
+    }
+  ],
+  "extensions": [
+    {
+      "id": "layout-list",
+      "target": "lx.official-suite/search.suggestions.renderer",
+      "version": "1.0.0",
+      "handler": "list",
+      "title": "清单"
+    },
+    {
+      "id": "layout-grid",
+      "target": "lx.official-suite/search.suggestions.renderer",
+      "version": "1.0.0",
+      "handler": "grid",
+      "title": "卡片"
+    },
+    {
+      "id": "hint",
+      "target": "lx.official-suite/search.suggestions.slot",
+      "version": "1.0.0",
+      "handler": "hint",
+      "title": "灵感说明"
+    },
+    {
+      "id": "tools",
+      "target": "lx.official-suite/search.suggestions.toolbar",
+      "version": "1.0.0",
+      "handler": "tools",
+      "title": "灵感操作"
+    }
+  ]
+}

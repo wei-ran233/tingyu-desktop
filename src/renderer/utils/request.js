@@ -95,6 +95,11 @@ const buildHttpPromose = (url, options) => {
     }).then(ro => {
       obj.requestObj = ro
       if (obj.isCancelled) obj.cancelHttp()
+    }).catch(err => {
+      // Setup can reject before needle installs its callback (URL/proxy/signing).
+      obj.requestObj = null
+      obj.cancelFn = null
+      reject(err)
     })
   })
   return obj
@@ -283,7 +288,7 @@ const fetchData = async(url, method, {
   ...options
 }, callback) => {
   // console.log(url, options)
-  console.log('---start---', url)
+  debugRequest && console.log('[request]', method, url.split('?')[0])
   headers = Object.assign({}, headers)
   if (headers[bHh]) {
     const path = url.replace(/^https?:\/\/[\w.:]+\//, '/')
